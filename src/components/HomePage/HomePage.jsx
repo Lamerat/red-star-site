@@ -5,6 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2'
 import { mainPaper } from './styles'
 import NewsBox from '../NewsBox/NewsBox'
 import GameBox from '../GameBox/GameBox'
+import CalendarSmall from '../CalendarSmall/CalendarSmall'
 
 const HomePage = () => {
   return (
@@ -13,9 +14,10 @@ const HomePage = () => {
         <Scrollbars style={{height: '100vh'}}>
           <Stack direction='row' spacing={3}>
             <NewsBox />
-            <Stack spacing={3}>
+            <Stack spacing={3} maxWidth='330px'>
               <GameBox type='next' />
               <GameBox type='last' />
+              <CalendarSmall />
             </Stack>
           </Stack>
           
