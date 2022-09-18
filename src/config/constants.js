@@ -5,6 +5,8 @@ export const TEAM_ID = '62f77ca15f4578ea5efbed89'
 
 export const redColor = '#e31e24'
 
+export const trainingImage = 'https://lamerat.github.io/ChervenaZvezda/images/training.png'
+
 export const overtimeTranslate = {
   draw: 'равен',
   penalties: 'наказателни удари',

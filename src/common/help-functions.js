@@ -7,6 +7,12 @@ export const getDayNumber = (date) => moment(date).format('DD').toString()
 
 export const getMonth = (date) => moment(date).format('MMMM').toString()
 
+export const getYear = (date) => moment(date).format('YYYY').toString()
+
+export const getDayName = (date) => moment(date).format('dddd').toString()
+
+export const getTime = (date) => moment(date).format('HH:mm').toString()
+
 /**
  * Create calendar
  * @returns {Array}

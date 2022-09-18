@@ -7,3 +7,12 @@ export const getLastNextGame = async (body) => {
     body: JSON.stringify({ ...body, team: TEAM_ID }),
   })
 }
+
+
+export const getMontEvents = async (body) => {
+  return fetch(`${API}/event/public/month`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...body, team: TEAM_ID }),
+  })
+}
