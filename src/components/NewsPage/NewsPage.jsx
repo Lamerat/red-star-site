@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Container, Box, Typography, LinearProgress, Divider } from '@mui/material'
+import { Container, Box, Typography, LinearProgress, Grid } from '@mui/material'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { listNewsRequest } from '../../api/news'
 import { redColor } from '../../config/constants'
 import { mainPaper } from './styles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import MainNews from './MainNews'
+import NewsSmall from './NewsSmall'
 
 
 const NewsPage = () => {
@@ -40,10 +41,12 @@ const NewsPage = () => {
           {
             !news
               ? <LinearProgress sx={{height: '20px'}} />
-              : <Box>
-                  <MainNews data={news[2]} />
-                  <Divider sx={{mt: 2, mb: 2}} />
-              </Box>
+              : <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <MainNews data={news[0]} />
+                  </Grid>
+                  { news.slice(1).map(x => <Grid key={x._id} item xs={3}><NewsSmall key={x._id} data={x}/></Grid>) }
+                </Grid>
           }
           </Box>
         </Scrollbars>

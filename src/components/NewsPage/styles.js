@@ -1,4 +1,4 @@
-import { redColor } from "../../config/constants"
+import { redColor } from '../../config/constants'
 
 export const mainPaper = {
   maxHeight: 'calc(100vh - 200px)',
@@ -46,4 +46,32 @@ export const dateNewsStyle = {
   fontFamily: 'CorsaGrotesk',
   fontSize: '13px',
   color: redColor,
+  pb: 0.2,
+}
+
+export const smallNewsImage = {
+  maxWidth: '299px',
+  minWidth: '299px',
+  minHeight: '190px',
+  maxHeight: '190px',
+  border: '1px solid #e0e0e0',
+  mb: 1
+}
+
+export const smallTitleStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '14px',
+  maxWidth: '301px',
+  display: '-webkit-box',
+  lineHeight: '1.5',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+  fontWeight: 'bold',
+  letterSpacing: '0.5px',
+  cursor: 'pointer',
+  '&:hover': {
+    textDecoration: 'underline',
+  }
 }
