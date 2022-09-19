@@ -30,7 +30,7 @@ const MenuBar = () => {
               </Box>
             </Box>
             <Box sx={separatorStyle} />
-            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(3)}>НОВИНИ</Box>
+            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(3)} onClick={() => history('/news')}>НОВИНИ</Box>
             <Box sx={separatorStyle} />
             <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(4)}>
               ОТБОР

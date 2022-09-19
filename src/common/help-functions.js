@@ -13,6 +13,12 @@ export const getDayName = (date) => moment(date).format('dddd').toString()
 
 export const getTime = (date) => moment(date).format('HH:mm').toString()
 
+export const newsTime = (date) => {
+  const today = moment()
+  if (moment(date).isSame(today, 'd')) return moment(date).format('Днес - HH:mm ч.').toString()
+  return moment(date).format('DD MMMM YYYY - HH:ss ч.')
+}
+
 /**
  * Create calendar
  * @returns {Array}
