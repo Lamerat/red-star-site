@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Box } from '@mui/material'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
+import { Box, Backdrop } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
+import { Autoplay, Pagination, Navigation, Keyboard  } from 'swiper'
 import { listPhotosRequest } from '../../api/media'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -19,11 +19,30 @@ const preloadStyle = {
   alignItems: 'center',
 }
 
+
 const ImageSliderSmall = () => {
   const firstRenderRef = useRef(true)
 
   const [photos, setPhotos] = useState(null)
+  const [fullscreen, setFullscreen] = useState({ enabled: false, startIndex: 0 })
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
+  
+
+  const handleKeyUp = useCallback((event) => {
+      if (event.key === 'Escape') {
+        setFullscreen({ enabled: false, startIndex: 0 })
+      }
+  }, [setFullscreen])
+
+  useEffect(() => {
+    if (fullscreen.enabled) {
+        window.addEventListener('keyup', handleKeyUp)
+    } else {
+        window.removeEventListener('keyup', handleKeyUp)
+    }
+
+    return () => window.removeEventListener('keyup', handleKeyUp)
+  }, [fullscreen, handleKeyUp])
 
   useEffect(() => {
     if(firstRenderRef.current) {
@@ -42,16 +61,55 @@ const ImageSliderSmall = () => {
 
   if (!photos) return <Box sx={preloadStyle}><CircularProgress size='60px' />{ errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }</Box>
 
+
+  if (fullscreen.enabled) {
+    return (
+      <Backdrop open={true} sx={{ zIndex: 10000, backgroundColor: 'black', m: '0 !important'}}>
+        <Swiper
+          initialSlide={fullscreen.startIndex}
+          loop={true}
+          autoHeight={true}
+          pagination={{ clickable: true }}
+          navigation={{ clickable: true }}
+          keyboard={{ enabled: true }}
+          modules={[Pagination, Autoplay, Navigation, Keyboard ]}
+          style={{ display: 'flex', alignItems: 'center', margin: 24 }}
+        >
+          { photos.map(x =>
+            <SwiperSlide key={x._id}>
+              <Box className='swiper-image-wrapper' >
+                <img
+                  style={{height: '100%', maxHeight: '90vh', width: 'auto'}}
+                  src={x.address}
+                  alt={x._id}
+                  onClick={() => setFullscreen({ enabled: false, startIndex: 0 })}
+                />
+              </Box>
+            </SwiperSlide>)
+          }
+          { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
+        </Swiper>
+      </Backdrop>
+    )
+  }
+
+
   return (
     <Swiper
-      onClick={() => console.log('ok')}
+      
+      loop={true}
       slidesPerView={5}
       spaceBetween={24}
-      pagination={{ clickable: true }}
       autoplay={{ delay: 2500, disableOnInteraction: false }}
-      modules={[Pagination, Autoplay]}
+      modules={[Autoplay]}
+      style={{maxHeight: '109px', maxWidth: '980px'}}
     >
-      { photos.map(x => <SwiperSlide key={x._id}><img src={x.address} alt={x._id} /></SwiperSlide>) }
+      {
+        photos.map((el, index) =>
+          <SwiperSlide key={el._id} onClick={() => setFullscreen({ enabled: true, startIndex: index })}>
+            <img src={el.address} alt={el._id} style={{cursor: 'pointer'}} />
+          </SwiperSlide>)
+      }
       { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Swiper>
   )

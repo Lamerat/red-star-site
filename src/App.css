@@ -42,8 +42,6 @@ body {
 
 .swiper {
   width: 100%;
-  max-width: 980px;
-  max-height: 109px;
   height: 100%;
 }
 
@@ -76,4 +74,25 @@ body {
 
 .swiper-pagination-bullet-active {
   background-color: #e31e24 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+}
+
+.swiper-image-wrapper {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-prev {
+  color: red;
+}
+
+.swiper-button-next {
+  color: red;
 }
