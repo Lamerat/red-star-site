@@ -6,6 +6,7 @@ import mainTheme from './theme/MainTheme.js'
 import './App.css'
 import AboutClub from './components/AboutClub/AboutClub'
 import NewsPage from './components/NewsPage/NewsPage'
+import SingleNewsPage from './components/SingleNewsPage/SingleNewsPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/about' element={<AboutClub />} />
           <Route exact path='/news' element={<NewsPage />} />
+          <Route exact path='/news/:id' element={<SingleNewsPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
