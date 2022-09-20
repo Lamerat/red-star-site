@@ -51,7 +51,6 @@ const ImageSliderSmall = ({ settings, album, data }) => {
       return
     }
     
-    console.log('render')
     if (data) {
       setPhotos(data)
       return

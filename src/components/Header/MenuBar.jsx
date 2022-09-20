@@ -10,8 +10,10 @@ const MenuBar = () => {
 
   const history = useNavigate()
 
-  const submenuAction = (address) => {
+  const submenuAction = (event, address) => {
+    
     history(address)
+    event.stopPropagation()
     setHoverButton(null)
   }
 
@@ -24,7 +26,7 @@ const MenuBar = () => {
             <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(2)}>
               КЛУБ
               <Box sx={{ ...dropDown, display: hoverButton === 2 ? 'block' : 'none' }}>
-                <Box sx={menuItem} onClick={() =>submenuAction('/about')}>ИСТОРИЯ</Box>
+                <Box sx={menuItem} onClick={(event) =>submenuAction(event, '/about')}>ИСТОРИЯ</Box>
                 <Divider variant='middle'/>
                 <Box sx={menuItem} onClick={() => 1}>КОНТАКТИ</Box>
               </Box>
@@ -32,14 +34,14 @@ const MenuBar = () => {
             <Box sx={separatorStyle} />
             <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(3)} onClick={() => history('/news')}>НОВИНИ</Box>
             <Box sx={separatorStyle} />
-            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(4)}>
+            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(4)} onClick={(event) => submenuAction(event, '/players/all')}>
               ОТБОР
               <Box sx={{ ...dropDown, display: hoverButton === 4 ? 'block' : 'none' }}>
-                <Box sx={menuItem} onClick={() => 1}>ВРАТАРИ</Box>
+                <Box sx={menuItem} onClick={(event) => submenuAction(event, '/players/goalie')}>ВРАТАРИ</Box>
                 <Divider variant='middle'/>
-                <Box sx={menuItem} onClick={() => 1}>ЗАЩИТНИЦИ</Box>
+                <Box sx={menuItem} onClick={(event) => submenuAction(event, '/players/guard')}>ЗАЩИТНИЦИ</Box>
                 <Divider variant='middle'/>
-                <Box sx={menuItem} onClick={() => 1}>НАПАДАТЕЛИ</Box>
+                <Box sx={menuItem} onClick={(event) => submenuAction(event, '/players/attacker')}>НАПАДАТЕЛИ</Box>
               </Box>
             </Box>
             <Box sx={separatorStyle} />

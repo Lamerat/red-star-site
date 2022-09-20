@@ -15,6 +15,12 @@ export const overtimeTranslate = {
   overtime: 'продължение'
 }
 
+export const positionTranslate = {
+  goalie: 'Вратар',
+  guard: 'Защитник',
+  attacker: 'Нападател'
+}
+
 export const mainPageSwiper = {
   loop: true,
   slidesPerView: 5,

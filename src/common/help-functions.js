@@ -19,6 +19,8 @@ export const newsTime = (date) => {
   return moment(date).format('DD MMMM YYYY - HH:ss ч.')
 }
 
+export const playerBirthDate = (date) => moment(date).format('DD.MM.YYYY г.')
+
 /**
  * Create calendar
  * @returns {Array}
