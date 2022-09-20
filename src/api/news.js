@@ -7,3 +7,11 @@ export const listNewsRequest = async (body) => {
     body: JSON.stringify({ ...body, team: TEAM_ID }),
   })
 }
+
+
+export const singleNewsRequest = async (id) => {
+  return fetch(`${API}/news/public/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
