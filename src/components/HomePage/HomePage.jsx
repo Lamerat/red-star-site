@@ -7,6 +7,7 @@ import NewsBox from '../NewsBox/NewsBox'
 import GameBox from '../GameBox/GameBox'
 import CalendarSmall from '../CalendarSmall/CalendarSmall'
 import ImageSliderSmall from '../ImageSliderSmall/ImageSliderSmall'
+import { mainPageSwiper } from '../../config/constants'
 
 const HomePage = () => {
   return (
@@ -16,7 +17,7 @@ const HomePage = () => {
           <Stack direction='row' spacing={3}>
             <Stack spacing={3}>
               <NewsBox />
-              <ImageSliderSmall />
+              <ImageSliderSmall settings={mainPageSwiper} />
             </Stack>
             <Stack spacing={3} maxWidth='330px'>
               <GameBox type='next' />

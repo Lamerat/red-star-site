@@ -4,6 +4,7 @@ import { Box, Stack, CardMedia } from '@mui/material'
 import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle, dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle } from './styles'
 import { formatDate, getDayNumber, getMonth } from '../../common/help-functions'
 import { listNewsRequest } from '../../api/news'
+import { useNavigate } from 'react-router-dom'
 import sanitizeHtml from 'sanitize-html'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -11,7 +12,9 @@ const NewsBox = () => {
   const firstRenderRef = useRef(true)
 
   const [news, setNews] = useState(null)
-  const [currentNews, setCurrentNews] = useState(2)
+  const [currentNews, setCurrentNews] = useState(0)
+
+  const history = useNavigate()
 
   useEffect(() => {
     if (!news) return
@@ -75,7 +78,7 @@ const NewsBox = () => {
             <Box key={el._id} sx={index === currentNews ? currentNewsTab : newsTab}>
               <Box sx={{ p: '10px', maxHeight: 'calc(100% - 21px)', height: '100%' }}>
                 <Box sx={index === currentNews ? activeTitleStyle : titleStyle}>{ formatDate(el.createdAt) }</Box>
-                <Box sx={contentStyle}>{ el.title.length > 95 ? `${el.title.slice(0, 95)} ...` : el.title }</Box>
+                <Box sx={contentStyle} onClick={() => history(`/news/${el._id}`)}>{ el.title.length > 95 ? `${el.title.slice(0, 95)} ...` : el.title }</Box>
               </Box>
               {
                 index < news.length - 1 && index !== currentNews

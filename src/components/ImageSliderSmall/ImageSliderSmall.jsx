@@ -20,7 +20,7 @@ const preloadStyle = {
 }
 
 
-const ImageSliderSmall = () => {
+const ImageSliderSmall = ({ settings, album, data }) => {
   const firstRenderRef = useRef(true)
 
   const [photos, setPhotos] = useState(null)
@@ -45,19 +45,26 @@ const ImageSliderSmall = () => {
   }, [fullscreen, handleKeyUp])
 
   useEffect(() => {
+    
     if(firstRenderRef.current) {
       firstRenderRef.current = false
       return
     }
+    
+    console.log('render')
+    if (data) {
+      setPhotos(data)
+      return
+    }
 
-    listPhotosRequest()
+    listPhotosRequest({ album })
     .then(x => x.json())
     .then(result => {
       if (!result.success) throw new Error(result.message)
       setPhotos(result.payload.docs)
     })
     .catch(error => setErrorDialog({ show: true, message: error.message }))
-  }, [])
+  }, [album, data])
 
   if (!photos) return <Box sx={preloadStyle}><CircularProgress size='60px' />{ errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }</Box>
 
@@ -79,7 +86,7 @@ const ImageSliderSmall = () => {
             <SwiperSlide key={x._id}>
               <Box className='swiper-image-wrapper' >
                 <img
-                  style={{height: '100%', maxHeight: '90vh', width: 'auto'}}
+                  style={{height: '100%', maxHeight: '80vh', width: 'auto'}}
                   src={x.address}
                   alt={x._id}
                   onClick={() => setFullscreen({ enabled: false, startIndex: 0 })}
@@ -96,13 +103,13 @@ const ImageSliderSmall = () => {
 
   return (
     <Swiper
-      
-      loop={true}
-      slidesPerView={5}
-      spaceBetween={24}
-      autoplay={{ delay: 2500, disableOnInteraction: false }}
-      modules={[Autoplay]}
-      style={{maxHeight: '109px', maxWidth: '980px'}}
+      loop={settings.loop}
+      slidesPerView={settings.slidesPerView}
+      spaceBetween={settings.spaceBetween}
+      autoplay={settings.autoplay}
+      modules={settings.modules}
+      pagination={{ clickable: true }}
+      style={settings.style}
     >
       {
         photos.map((el, index) =>
