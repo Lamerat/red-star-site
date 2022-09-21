@@ -17,6 +17,8 @@ const preloadStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  color: 'white',
+  fontFamily: 'CorsaGrotesk',
 }
 
 
@@ -66,6 +68,15 @@ const ImageSliderSmall = ({ settings, album, data }) => {
   }, [album, data])
 
   if (!photos) return <Box sx={preloadStyle}><CircularProgress size='60px' />{ errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }</Box>
+
+  if (!photos.length) {
+    return (
+      <Box sx={preloadStyle}>
+        НЯМА НАМЕРЕН ГЛАВЕН АЛБУМ ИЛИ Е ПРАЗЕН
+        { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
+      </Box>
+    )
+  }
 
 
   if (fullscreen.enabled) {

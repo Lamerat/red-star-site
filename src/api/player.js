@@ -8,3 +8,11 @@ export const getPlayersList = async (body) => {
   })
 }
 
+export const averageStat = async () => {
+  return fetch(`${API}/player/public/stat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ team: TEAM_ID }),
+  })
+}
+

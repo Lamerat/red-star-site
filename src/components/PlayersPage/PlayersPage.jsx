@@ -5,7 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2'
 import { redColor } from '../../config/constants'
 import { useParams } from 'react-router-dom'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
-import { getPlayersList } from '../../api/player'
+import { getPlayersList, averageStat } from '../../api/player'
 import PlayerBox from './PlayerBox'
 import TuneIcon from '@mui/icons-material/Tune'
 
@@ -13,12 +13,30 @@ const defaultFilters = { goalie: false, guard: false, attacker: false }
 const defaultQuery = { position: null, pageNumber: 1, pageSize: 12, noPagination: false, hasNextPage: false }
 
 const PlayersPage = () => {
+  const firstRenderRef = useRef(true)
   const { filter } = useParams()
   
   const [query, setQuery] = useState(defaultQuery)
   const [players, setPlayers] = useState(null)
+  const [stat, setStat] = useState(null)
   const [showFilters, setShowFilters] = useState(false)
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
+
+
+  useEffect(() => {
+    if(firstRenderRef.current) {
+      firstRenderRef.current = false
+      return
+    }
+
+    averageStat()
+    .then(x => x.json())
+    .then(result => {
+      if (!result.success) throw new Error(result.message)
+      setStat(result.payload)
+    })
+    .catch(error => setErrorDialog({ show: true, message: error.message }))
+  }, [])
 
 
   useEffect(() => {
@@ -63,7 +81,8 @@ const PlayersPage = () => {
     const newPositions = { ...query.position, [field]: !oldValue }
     setQuery({ ...defaultQuery, position: newPositions })
   }
-  console.log('render')
+
+  
   return (
     <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 2}} disableGutters={true}>
       <Box sx={mainPaper}>
@@ -72,8 +91,8 @@ const PlayersPage = () => {
             query.position
               ? <Box display='flex'>
                   <IconButton size='small' sx={{ml: -0.8}} onClick={() => setShowFilters(!showFilters)}><TuneIcon color='primary' /></IconButton>
-                  <Box overflow='hidden' ml={12}>
-                    <Slide in={showFilters} direction='right' pt={0.4} pl={1} mountOnEnter unmountOnExit timeout={800}>
+                  <Box overflow='hidden' ml={5}>
+                    <Slide in={showFilters} direction='right' pt={0.4} pl={1} mountOnEnter unmountOnExit timeout={700} ml={7}>
                       <Stack direction='row' spacing={1} >
                         <FormControlLabel
                           componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
@@ -90,6 +109,17 @@ const PlayersPage = () => {
                           control={ <Switch size='small' checked={query.position.attacker} onChange={() => switchChange('attacker')}/> }
                           label='нападатели'
                         />
+                        {
+                          !stat || stat.totalPlayers === 0
+                            ? null
+                            : <Box display='flex' pt={0.8} justifyContent='space-between' alignItems='center'>
+                                <Box ml={16} fontSize='12px'>Средна възраст: <strong>{ stat.averageYears } г.</strong></Box>
+                                <Box borderLeft='1px solid #e0e0e0' height='50%' ml={1} mr={1}></Box>
+                                <Box fontSize='12px'>Средна височина: <strong>{ stat.averageHeight } см</strong></Box>
+                                <Box borderLeft='1px solid #e0e0e0' height='50%' ml={1} mr={1}></Box>
+                                <Box fontSize='12px'>Средно тегло: <strong>{ stat.averageWeight } кг</strong></Box>
+                              </Box>
+                        }
                       </Stack>
                     </Slide>
                   </Box>
@@ -106,9 +136,11 @@ const PlayersPage = () => {
             {
               !players
                 ? <LinearProgress sx={{height: '20px'}} />
-                : <Grid container spacing={4}>
-                    { players.map(x => <Grid key={x._id} item xs={3}><PlayerBox key={x._id} data={x}/></Grid>) }
-                  </Grid>
+                : players.length
+                  ? <Grid container spacing={4}>
+                      { players.map(x => <Grid key={x._id} item xs={3}><PlayerBox key={x._id} data={x}/></Grid>) }
+                    </Grid>
+                  : <Box textAlign='center'>Няма намерени играчи</Box>
             }
             </Box>
         </Scrollbars>

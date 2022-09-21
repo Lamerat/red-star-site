@@ -11,6 +11,7 @@ export const loaderBox = {
   justifyContent: 'center',
   alignItems: 'center',
   fontFamily: 'CorsaGrotesk',
+  fontSize: '30px',
   filter: 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.8))',
 }
 

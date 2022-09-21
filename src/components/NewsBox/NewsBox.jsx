@@ -54,6 +54,8 @@ const NewsBox = () => {
 
   if (!news) return <Box sx={loaderBox}><CircularProgress size='200px' /></Box>
 
+  if (!news.length) return <Box sx={loaderBox}>НЯМА НАМЕРЕНИ НОВИНИ</Box>
+
   return (
     <Stack direction='row' spacing={0} sx={stackStyle}>
       <Box sx={leftSideStyle}>
