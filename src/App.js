@@ -8,6 +8,8 @@ import AboutClub from './components/AboutClub/AboutClub'
 import NewsPage from './components/NewsPage/NewsPage'
 import SingleNewsPage from './components/SingleNewsPage/SingleNewsPage'
 import PlayersPage from './components/PlayersPage/PlayersPage'
+import CalendarBig from './components/CalendarBig/CalendarBig'
+import MediaPage from './components/MediaPage/MediaPage'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route exact path='/news' element={<NewsPage />} />
           <Route exact path='/news/:id' element={<SingleNewsPage />} />
           <Route exact path='/players/:filter' element={<PlayersPage />} />
+          <Route exact path='/calendar' element={<CalendarBig />} />
+          <Route exact path='/media' element={<MediaPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

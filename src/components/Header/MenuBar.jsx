@@ -45,9 +45,9 @@ const MenuBar = () => {
               </Box>
             </Box>
             <Box sx={separatorStyle} />
-            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(5)}>МЕДИЯ</Box>
+            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(5)} onClick={() => history('/media')}>МЕДИЯ</Box>
             <Box sx={separatorStyle} />
-            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(6)}>КАЛЕНДАР</Box>
+            <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(6)} onClick={() => history('/calendar')}>КАЛЕНДАР</Box>
             <Box sx={separatorStyle} />
           </Box>
         </Box>
