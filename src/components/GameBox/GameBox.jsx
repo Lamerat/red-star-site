@@ -43,12 +43,25 @@ const GameBox = ({type}) => {
           ? <Box sx={versusStyle}>VS</Box>
           : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <Box sx={overTimeStyle}>{ game.overtime ? overtimeTranslate[game.overtime] : null }</Box>
-              <Box  sx={versusStyle}>{`${game.finalScore.home} - ${game.finalScore.visitor}`}</Box>
-              <Stack direction='row' sx={partsStyle} spacing={0.8}>
-                <Box>{`${game.firstThird.home}-${game.firstThird.visitor}`}</Box>
-                <Box>{`${game.secondThird.home}-${game.secondThird.visitor}`}</Box>
-                <Box>{`${game.thirdThird.home}-${game.thirdThird.visitor}`}</Box>
-              </Stack>
+              {
+                game.finalScore.home !== null && game.finalScore.visitor !== null
+                  ? <>
+                      <Box  sx={versusStyle}>{`${game.finalScore.home} - ${game.finalScore.visitor}`}</Box>
+                        <Stack direction='row' sx={partsStyle} spacing={0.8}>
+                          <Box>{`${game.firstThird.home}-${game.firstThird.visitor}`}</Box>
+                          <Box>{`${game.secondThird.home}-${game.secondThird.visitor}`}</Box>
+                          <Box>{`${game.thirdThird.home}-${game.thirdThird.visitor}`}</Box>
+                      </Stack>
+                    </>
+                  : <>
+                      <Box  sx={versusStyle}>{` - `}</Box>
+                        <Stack direction='row' sx={partsStyle} spacing={0.8}>
+                          <Box>{` - `}</Box>
+                          <Box>{` - `}</Box>
+                          <Box>{` - `}</Box>
+                      </Stack>
+                    </>
+              }
             </Box>
         }
         <CardMedia component='img' image={game.visitorTeam.logo} sx={logoStyle}/>
