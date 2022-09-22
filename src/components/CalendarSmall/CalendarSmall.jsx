@@ -9,7 +9,7 @@ import EventRow from './EventRow.jsx'
 
 
 const CalendarSmall = () => {
-  const calendar = createCalendarArray()
+  const calendar = createCalendarArray(new Date())
   const firstRenderRef = useRef(true)
 
   const [events, setEvents] = useState(null)

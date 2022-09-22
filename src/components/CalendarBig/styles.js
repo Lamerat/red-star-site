@@ -46,3 +46,64 @@ export const versusStyle = {
   fontSize: '18px',
   pb: '5px'
 }
+
+export const otherEventBoxStyle = {
+  mt: 2.5,
+  p: 1,
+  fontSize: '11px',
+  display: '-webkit-box',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: 3,
+  WebkitBoxOrient: 'vertical',
+  letterSpacing: '0.5px',
+  maxHeight: '45px',
+  maxWidth: '162px',
+  lineHeight: '1.5',
+  textAlign: 'justify'
+}
+
+export const otherEventRowStyle = {
+  p: '12px',
+  fontSize: '13px',
+  display: '-webkit-box',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: 4,
+  WebkitBoxOrient: 'vertical',
+  letterSpacing: '0.5px',
+  width: '960px',
+  lineHeight: '1.6',
+  textAlign: 'justify',
+  maxHeight: '76px'
+}
+
+export const boxMainStyle = {
+  minHeight: '85px',
+  maxHeight: '85px',
+  border: '1px solid lightgray',
+  backgroundColor: '#eeeeee',
+  m: 0.5, position: 'relative',
+  fontFamily: 'CorsaGrotesk'
+}
+
+export const boxDayNumber = {
+  position: 'absolute',
+  top: '4px',
+  left: '8px',
+  fontSize: '12px',
+  color: 'darkgray'
+}
+
+export const outMontBox = {
+  minHeight: '85px',
+  maxHeight: '85px',
+  border: '1px dashed #ebeff2',
+  m: 0.5
+}
+
+export const rowTimeStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '13px',
+  pb: 0.2,
+}

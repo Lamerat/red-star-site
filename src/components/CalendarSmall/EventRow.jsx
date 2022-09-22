@@ -1,9 +1,8 @@
 import React from 'react'
 import { Box, Stack, CardMedia } from '@mui/material'
 import { getMonth, getDayNumber, getDayName, getTime } from '../../common/help-functions.js'
-import { popoverTitle, versusStyle, overTimeStyle, partsStyle, logoStyle, popupDateStyle } from './style.js'
+import { popoverTitle, versusStyle, overTimeStyle, partsStyle, logoStyle, popupDateStyle, otherEventText } from './style.js'
 import { overtimeTranslate, trainingImage } from '../../config/constants'
-import sanitizeHtml from 'sanitize-html'
 import parse from 'html-react-parser'
 
 
@@ -46,12 +45,7 @@ const EventRow = ({data, last}) => {
                 <Box sx={{alignSelf: 'center', justifySelf: 'center', pb: 1, fontSize: '20px'}} >ТРЕНИРОВКА</Box>
                 <CardMedia component='img' image={trainingImage} sx={{ ...logoStyle, transform: 'scaleX(-1)' }}/>
               </Box>
-              : <Box pb={1} pt={1}>
-                {
-                  sanitizeHtml(data.description).length > 200
-                    ? sanitizeHtml(data.description)
-                    : parse(data.description)
-                }
+              : <Box sx={otherEventText}>{ parse(data.description) }
               </Box>
       }
       { last ? null : <Box sx={{borderBottom: '1px solid #9e9e9e'}} /> }

@@ -122,3 +122,19 @@ export const elementsBox = {
   gridTemplateColumns: `${100 / 7}% ${100 / 7}% ${100 / 7}% ${100 / 7}% ${100 / 7}% ${100 / 7}% ${100 / 7}%`,
   gridTemplateRows: '20% 20% 20% 20% 20%',
 }
+
+export const otherEventText = {
+  display: '-webkit-box',
+  overflow: 'hidden',
+  fontSize: '15px',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: 5,
+  lineHeight: '1.4',
+  WebkitBoxOrient: 'vertical',
+  letterSpacing: '0.5px',
+  pb: 1,
+  pt: 1,
+  maxWidth: '328px',
+  minHeight: '100px',
+  maxHeight: '100px'
+}

@@ -25,12 +25,18 @@ export const playerBirthDate = (date) => moment(date).format('DD.MM.YYYY г.')
  * Create calendar
  * @returns {Array}
  */
-export const createCalendarArray = () => {
-  const firstDay = Number(moment().startOf('month').format('d').toString())
-  const bigDate = Number(moment().endOf('month').format('DD').toString())
+export const createCalendarArray = (date) => {
+  
+  const firstDay = Number(moment(date || new Date()).startOf('month').format('d').toString())
+  const bigDate = Number(moment(date || new Date()).endOf('month').format('DD').toString())
   const calendar = Array.apply(null, {length: firstDay - 1}).map(x => x = null)
   for (let i = 1; i <= bigDate; i++) calendar.push(i)
   while (calendar.length < 35) calendar.push(null)
+  
+  if (calendar.length > 35) {
+    const lastDates = calendar.slice(35)
+    lastDates.forEach((x, index) => calendar[index] = x)
+  }
 
-  return calendar
+  return calendar.slice(0, 35)
 }

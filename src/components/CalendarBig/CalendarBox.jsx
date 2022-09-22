@@ -1,13 +1,14 @@
 import React from 'react'
 import { Box, CardMedia } from '@mui/material'
 import { TEAM_ID, trainingImage } from '../../config/constants'
-import { downMark, logoStyle } from './styles'
+import { downMark, logoStyle, otherEventBoxStyle, boxMainStyle, boxDayNumber } from './styles'
 import { redColor } from '../../config/constants'
 import parse from 'html-react-parser'
 import moment from 'moment-timezone'
 
 
 const CalendarBox = ({ day, data }) => {
+  if (data) data = { ...data }
   if (data && data.count > 1) {
     const checkForGame = data.list.filter(x => x.type === 'game')
     if (checkForGame.length) {
@@ -34,14 +35,13 @@ const CalendarBox = ({ day, data }) => {
   }
   
   return (
-    <Box sx={{ minHeight: '85px', border: '1px solid lightgray', m: 1, position: 'relative', fontFamily: 'CorsaGrotesk' }}>
-      <Box sx={{ position: 'absolute', top: '4px', left: '8px', fontSize: '12px', color: 'darkgray' }}>{day}</Box>
-      
+    <Box sx={event ? boxMainStyle : { ...boxMainStyle, backgroundColor: 'white' }}>
+      <Box sx={boxDayNumber}>{day}</Box>
       {
         !event
           ? null
           : event.type === 'game'
-            ? <Box sx={{display: 'grid', gridTemplateColumns: '60% 40%', minHeight: '80px', maxHeight: '80px', width: '100%'}}>
+            ? <Box sx={{display: 'grid', gridTemplateColumns: '60% 40%', minHeight: '80px', maxHeight: '80px'}}>
                 <Box sx={{ alignSelf: 'end', fontSize: '22px', fontWeight: 'bold', ml: 1, mb: 1.5 }}>{formatScore()}</Box>
                 <CardMedia component='img' image={showTeam()} sx={logoStyle}/>
                 <Box sx={downMark(event.homeTeam._id === TEAM_ID ? redColor : 'black')}></Box>
@@ -51,7 +51,7 @@ const CalendarBox = ({ day, data }) => {
                   <Box sx={{ alignSelf: 'end', fontSize: '13px', ml: 1, mb: 0.5 }}>Тренировка</Box>
                 <CardMedia component='img' image={trainingImage} sx={{ ...logoStyle, transform: 'scaleX(-1)', mt: 0.5 }}/>
             </Box>
-              : <Box sx={{ p: 1, mt: 3, fontSize: '12px' }}>{parse(event.description)}</Box>
+              : <Box sx={otherEventBoxStyle}>{parse(event.description)}</Box>
       }
     </Box>
   )
