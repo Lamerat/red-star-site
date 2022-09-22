@@ -76,7 +76,7 @@ const CalendarSmall = () => {
         disableRestoreFocus
         PaperProps={{elevation: 0, sx: popoverPaper}}
       >
-        <Stack spacing={1}>{ currentDay.map((el, index) => <EventRow key={el._id} data={el} last={index === currentDay.length - 1} />) }</Stack>
+        <Stack spacing={1}>{ currentDay.map((el, index) => <EventRow key={el._id} data={el} last={index === currentDay.length - 1 } />) }</Stack>
       </Popover>
       { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Box>
