@@ -7,3 +7,12 @@ export const listPhotosRequest = async (body) => {
     body: JSON.stringify({ ...body, team: TEAM_ID }),
   })
 }
+
+
+export const listAlbumsRequest = async (body) => {
+  return fetch(`${API}/album/public/list`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...body, team: TEAM_ID }),
+  })
+}

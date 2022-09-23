@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Container, Box, Typography, LinearProgress, Grid, IconButton, Switch, FormControlLabel, Slide, Stack } from '@mui/material'
+import { getPlayersList, averageStat } from '../../api/player'
 import { mainPaper } from './styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { redColor } from '../../config/constants'
 import { useParams } from 'react-router-dom'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
-import { getPlayersList, averageStat } from '../../api/player'
 import PlayerBox from './PlayerBox'
 import TuneIcon from '@mui/icons-material/Tune'
 

@@ -113,7 +113,7 @@ const ImageSliderSmall = ({ settings, album, data }) => {
 
   return (
     <Swiper
-      loop={settings.loop}
+      loop={photos.length >= 5 ? settings.loop : false}
       slidesPerView={settings.slidesPerView}
       spaceBetween={settings.spaceBetween}
       autoplay={settings.autoplay}
