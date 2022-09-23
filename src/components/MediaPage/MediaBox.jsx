@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Box, CardMedia } from '@mui/material'
+import { Box, Backdrop } from '@mui/material'
 import { formatDate, newsTime } from '../../common/help-functions'
 import { redColor } from '../../config/constants'
 import { emptySlideStyle, smallNewsImage, dateNewsStyle } from './styles'
@@ -15,8 +15,40 @@ import 'swiper/css/navigation'
 
 
 const MediaBox = ({data}) => {
-
+  const [fullscreen, setFullscreen] = useState({ enabled: false, startIndex: 0 })
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
+
+
+  if (fullscreen.enabled) {
+    return (
+      <Backdrop open={true} sx={{ zIndex: 10000, backgroundColor: 'black', m: '0 !important'}}>
+        <Swiper
+          initialSlide={fullscreen.startIndex}
+          loop={true}
+          autoHeight={true}
+          pagination={{ clickable: true }}
+          navigation={{ clickable: true }}
+          keyboard={{ enabled: true }}
+          modules={[Pagination, Autoplay, Navigation, Keyboard ]}
+          style={{ display: 'flex', alignItems: 'center', margin: 24 }}
+        >
+          { data.photos.map(x =>
+            <SwiperSlide key={x._id}>
+              <Box className='swiper-image-wrapper' >
+                <img
+                  style={{height: '100%', maxHeight: '80vh', width: 'auto'}}
+                  src={x.address}
+                  alt={x._id}
+                  onClick={() => setFullscreen({ enabled: false, startIndex: 0 })}
+                />
+              </Box>
+            </SwiperSlide>)
+          }
+          { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
+        </Swiper>
+      </Backdrop>
+    )
+  }
 
   return (
     <Box maxHeight='265px' minHeight='245px'>
@@ -32,8 +64,16 @@ const MediaBox = ({data}) => {
           !data.photosCount
             ? <SwiperSlide><Box sx={{ ...emptySlideStyle, fontSize: '14px' }}>{ `няма намерени снимки` }</Box></SwiperSlide>
             : <>
-                { data.photos.map((el, index) => <SwiperSlide key={el._id} onClick={() => 1}><img src={el.address} alt={el._id} style={{cursor: 'pointer' }} /></SwiperSlide>) }
-                { data.photosCount > 3 ? <SwiperSlide><Box sx={emptySlideStyle}>{ `+ още ${data.photosCount - 3}` }</Box></SwiperSlide> : null}
+                {
+                  data.photos.map((el, index) => 
+                    <SwiperSlide key={el._id} onClick={() => setFullscreen({ enabled: true, startIndex: index })}>
+                      <img src={el.address} alt={el._id} style={{cursor: 'pointer' }} />
+                    </SwiperSlide>)
+                }
+                {
+                  data.photosCount > 3
+                    ? <SwiperSlide onClick={() => setFullscreen({ enabled: true, startIndex: 4 })}><Box sx={emptySlideStyle}>{ `+ още ${data.photosCount - 3}` }</Box></SwiperSlide>
+                    : null}
               </>
         }
       </Swiper>
