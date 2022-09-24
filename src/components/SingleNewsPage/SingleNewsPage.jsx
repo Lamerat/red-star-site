@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Container, Box, Typography, LinearProgress } from '@mui/material'
+import { Container, Box, Typography, LinearProgress, Divider } from '@mui/material'
 import { singNewsPageSwiper } from '../../config/constants.js'
-import { mainPaper, newsBox, imageWrapper } from './styles'
+import { mainPaper, newsBox, imageWrapper, dateStyle, dividerWrapper } from './styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { singleNewsRequest } from '../../api/news'
 import { redColor } from '../../config/constants'
@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import parse from 'html-react-parser'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import ImageSliderSmall from '../ImageSliderSmall/ImageSliderSmall'
+import { formatDate } from '../../common/help-functions.js'
 
 
 const SingleNewsPage = () => {
@@ -47,13 +48,16 @@ const SingleNewsPage = () => {
               !news
                 ? <LinearProgress sx={{height: '20px'}} />
                 : <Box sx={newsBox}>
+                  <Box sx={dividerWrapper}><Divider orientation='vertical' /></Box>
                     <Box sx={imageWrapper}>
                       <ImageSliderSmall settings={singNewsPageSwiper} data={[news.coverPhoto, ...news.photos]} />
                     </Box>
                     <Box style={{marginTop: '-432px'}}>
                       <Box sx={{ fontWeight: 'bold', fontSize: '20px' }}>{news.title}</Box>
+                      <Box sx={dateStyle}>{formatDate(news.createdAt)}</Box>
                       { parse(news.text) }
                     </Box>
+                    
                   </Box>
             }
             </Box>
