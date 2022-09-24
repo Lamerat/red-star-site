@@ -1,40 +1,15 @@
 import React from 'react'
 import { Box, CardMedia, Stack } from '@mui/material'
-import { redColor } from '../../config/constants'
+import { otherEventRowStyle, rowTimeStyle, rowOverTimeStyle, rowPartsStyle, rowVersusStyle, rowGameStyle } from './styles'
 import { getMonth, getDayNumber } from '../../common/help-functions'
 import { overtimeTranslate, trainingImage } from '../../config/constants'
+import { redColor } from '../../config/constants'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import moment from 'moment-timezone'
 import parse from 'html-react-parser'
-import { otherEventRowStyle, rowTimeStyle } from './styles'
-import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
-export const versusStyle = {
-  textAlign: 'center',
-  fontFamily: 'CorsaGrotesk',
-  fontWeight: 'bold',
-  fontSize: '35px',
-  minWidth: '150px',
-  maxHeight: '41px',
-  minHeight: '41px',
-  lineHeight: '1.2',
-  pb: '3px'
-}
 
-export const overTimeStyle = {
-  fontFamily: 'CorsaGrotesk',
-  fontSize: '11px',
-  minHeight: '16px'
-}
-
-export const partsStyle = {
-  fontFamily: 'CorsaGrotesk',
-  fontSize: '11px',
-  justifyContent: 'space-between',
-  letterSpacing: '1px',
-  minHeight: '16px'
-}
-
-const CalendarRow = ({ data }) => {
+const CalendarRow = ({ data, detailFunc }) => {
 
   const formatScore = () => {
     const gameDate = moment(data.date).tz('Europe/Sofia').add(4, 'hours')
@@ -53,7 +28,7 @@ const CalendarRow = ({ data }) => {
       </Box>
       {
         data.type === 'game'
-          ? <Box sx={{display: 'flex', fontSize: '14px', p: '12px', width: '100%', justifyContent: 'center'}}>
+          ? <Box sx={rowGameStyle} onClick={() => detailFunc({ show: true, event: data._id })}>
               <Box sx={{textAlign: 'center', display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'right' }}>
                 <Box mr={2}>
                   <Box sx={{textAlign: 'right', fontSize: '18px', fontWeight: 'bold'}}>{data.homeTeam.name}</Box>
@@ -63,12 +38,12 @@ const CalendarRow = ({ data }) => {
               </Box>
               {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <Box sx={overTimeStyle}>{ data.overtime ? overtimeTranslate[data.overtime] : null }</Box>
-                  <Box  sx={versusStyle}>{formatScore()}</Box>
+                  <Box sx={rowOverTimeStyle}>{ data.overtime ? overtimeTranslate[data.overtime] : null }</Box>
+                  <Box  sx={rowVersusStyle}>{formatScore()}</Box>
                   {
                     data.finalScore.home === null || data.finalScore.visitor === null
-                      ? <Box sx={partsStyle} />
-                      : <Stack direction='row' sx={partsStyle} spacing={1}>
+                      ? <Box sx={rowPartsStyle} />
+                      : <Stack direction='row' sx={rowPartsStyle} spacing={1}>
                           <Box>{`${data.firstThird.home}-${data.firstThird.visitor}`}</Box>
                           <Box>{`${data.secondThird.home}-${data.secondThird.visitor}`}</Box>
                           <Box>{`${data.thirdThird.home}-${data.thirdThird.visitor}`}</Box>
@@ -85,12 +60,12 @@ const CalendarRow = ({ data }) => {
               </Box>
             </Box>
           : data.type === 'training'
-              ? <Box sx={{minWidth: '302px', display: 'flex', p: '12px'}}>
+              ? <Box sx={{minWidth: '302px', display: 'flex', p: '12px', cursor: 'pointer'}} onClick={() => detailFunc({ show: true, event: data._id })}>
                 <CardMedia component='img' image={trainingImage} sx={{maxHeight: '76px', minHeight: '76px', maxWidth: '76px', minWidth: '76px'}}/>
                 <Box sx={{minWidth: '150px', textAlign: 'center', fontSize: '18px', pt: 3, fontWeight: 'bold'}}>ТРЕНИРОВКА</Box>
                 <CardMedia component='img' image={trainingImage} sx={{maxHeight: '76px', minHeight: '76px', maxWidth: '76px', minWidth: '76px', transform: 'scaleX(-1)'}}/>
               </Box>
-              : <Box sx={otherEventRowStyle}>{ parse(data.description) }</Box>
+              : <Box sx={otherEventRowStyle} onClick={() => detailFunc({ show: true, event: data._id })}>{ parse(data.description) }</Box>
       }
       <Box sx={{backgroundColor: 'gray', color: 'white', p: 1, fontSize: '13px', minWidth: '200px', textAlign: 'right'}}>
         { data.type !== 'other' ? <Box>{data.arena.name}</Box> : null }

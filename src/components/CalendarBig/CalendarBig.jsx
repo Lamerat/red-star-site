@@ -90,7 +90,7 @@ const CalendarBig = () => {
                         </Box>
                       </Box>
                     </>
-                  : events.map(s => s.list).flat().reverse().map(x => <CalendarRow key={x._id} data={x} />)
+                  : events.map(s => s.list).flat().reverse().map(x => <CalendarRow key={x._id} data={x} detailFunc={setDetailView} />)
             }
           </Box>
         </Scrollbars>

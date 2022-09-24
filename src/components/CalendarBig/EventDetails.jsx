@@ -1,45 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Container, Backdrop, Box, CircularProgress, IconButton, CardMedia, Stack } from '@mui/material'
-import { isMobile } from 'react-device-detect'
-import { getSingleEvent } from '../../api/events'
-import CloseIcon from '@mui/icons-material/Close'
+import { detailPreviewMain, topPreview, detailPreviewWhite, detailTrainingImage, detailVersusStyle, detailOverTimeStyle, detailPartsStyle, mainContainerStyle } from './styles'
 import { getDayNumber, getMonth, getTime, getYear } from '../../common/help-functions'
-import AccessTimeIcon from '@mui/icons-material/AccessTime'
-import { redColor } from '../../config/constants'
 import { overtimeTranslate, trainingImage } from '../../config/constants'
+import { getSingleEvent } from '../../api/events'
+import { redColor } from '../../config/constants'
+import CloseIcon from '@mui/icons-material/Close'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import parse from 'html-react-parser'
-import { detailPreviewMain, topPreview, detailPreviewWhite, detailTrainingImage } from './styles'
 import moment from 'moment-timezone'
 
-const mainContainerStyle = {
-  maxWidth: `${isMobile ? '96vw' : '800px'} !important`,
-}
-
-export const versusStyle = {
-  textAlign: 'center',
-  fontFamily: 'CorsaGrotesk',
-  fontWeight: 'bold',
-  fontSize: '45px',
-  minWidth: '160px',
-  maxHeight: '70px',
-  minHeight: '70px',
-  lineHeight: '1.4',
-  pb: '3px'
-}
-
-export const overTimeStyle = {
-  fontFamily: 'CorsaGrotesk',
-  fontSize: '14px',
-  minHeight: '16px'
-}
-
-export const partsStyle = {
-  fontFamily: 'CorsaGrotesk',
-  fontSize: '14px',
-  justifyContent: 'space-between',
-  letterSpacing: '1px',
-  minHeight: '16px'
-}
 
 export const EventDetails = ({ event, closeFunc, errorFunc }) => {
   const firstRenderRef = useRef(true)
@@ -108,12 +78,12 @@ export const EventDetails = ({ event, closeFunc, errorFunc }) => {
                         </Box>
                         {
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxHeight: '110px' }}>
-                            <Box sx={overTimeStyle}>{ data.overtime ? overtimeTranslate[data.overtime] : null }</Box>
-                            <Box  sx={versusStyle}>{formatScore()}</Box>
+                            <Box sx={detailOverTimeStyle}>{ data.overtime ? overtimeTranslate[data.overtime] : null }</Box>
+                            <Box  sx={detailVersusStyle}>{formatScore()}</Box>
                             {
                               data.finalScore.home === null || data.finalScore.visitor === null
-                                ? <Box sx={partsStyle} />
-                                : <Stack direction='row' sx={partsStyle} spacing={1.3}>
+                                ? <Box sx={detailPartsStyle} />
+                                : <Stack direction='row' sx={detailPartsStyle} spacing={1.3}>
                                     <Box>{`${data.firstThird.home}-${data.firstThird.visitor}`}</Box>
                                     <Box>{`${data.secondThird.home}-${data.secondThird.visitor}`}</Box>
                                     <Box>{`${data.thirdThird.home}-${data.thirdThird.visitor}`}</Box>

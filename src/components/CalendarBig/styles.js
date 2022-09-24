@@ -1,4 +1,4 @@
-// import { redColor } from '../../config/constants'
+import { isMobile } from 'react-device-detect'
 
 export const mainPaper = {
   maxHeight: 'calc(100vh - 200px)',
@@ -75,7 +75,8 @@ export const otherEventRowStyle = {
   width: '960px',
   lineHeight: '1.6',
   textAlign: 'justify',
-  maxHeight: '76px'
+  maxHeight: '76px',
+  cursor: 'pointer'
 }
 
 export const boxMainStyle = {
@@ -139,4 +140,69 @@ export const detailTrainingImage =  {
   minWidth: '150px',
   ml: -2,
   float: 'left'
+}
+
+export const detailVersusStyle = {
+  textAlign: 'center',
+  fontFamily: 'CorsaGrotesk',
+  fontWeight: 'bold',
+  fontSize: '45px',
+  minWidth: '160px',
+  maxHeight: '70px',
+  minHeight: '70px',
+  lineHeight: '1.4',
+  pb: '3px'
+}
+
+export const detailOverTimeStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '14px',
+  minHeight: '16px'
+}
+
+export const detailPartsStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '14px',
+  justifyContent: 'space-between',
+  letterSpacing: '1px',
+  minHeight: '16px'
+}
+
+export const mainContainerStyle = {
+  maxWidth: `${isMobile ? '96vw' : '800px'} !important`,
+}
+
+export const rowVersusStyle = {
+  textAlign: 'center',
+  fontFamily: 'CorsaGrotesk',
+  fontWeight: 'bold',
+  fontSize: '35px',
+  minWidth: '150px',
+  maxHeight: '41px',
+  minHeight: '41px',
+  lineHeight: '1.2',
+  pb: '3px'
+}
+
+export const rowOverTimeStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '11px',
+  minHeight: '16px'
+}
+
+export const rowPartsStyle = {
+  fontFamily: 'CorsaGrotesk',
+  fontSize: '11px',
+  justifyContent: 'space-between',
+  letterSpacing: '1px',
+  minHeight: '16px'
+}
+
+export const rowGameStyle = {
+  display: 'flex',
+  fontSize: '14px',
+  p: '12px',
+  width: '100%',
+  justifyContent: 'center',
+  cursor: 'pointer'
 }
