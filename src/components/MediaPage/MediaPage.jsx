@@ -6,6 +6,7 @@ import { redColor } from '../../config/constants'
 import { mainPaper } from './styles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import MediaBox from './MediaBox'
+import FullscreenBox from './FullscreenBox'
 
 const defaultQuery = { pageNumber: 1, pageSize: 12, noPagination: false, hasNextPage: false }
 
@@ -15,6 +16,7 @@ const MediaPage = () => {
 
   const [query, setQuery] = useState(defaultQuery)
   const [albums, setAlbums] = useState(null)
+  const [fullscreenShow, setFullscreenShow] = useState(null)
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   useEffect(() => {
@@ -63,13 +65,14 @@ const MediaPage = () => {
                 ? <LinearProgress sx={{height: '20px'}} />
                 : albums.length
                   ? <Grid container spacing={4}>
-                      { albums.map(x => <Grid key={x._id} item xs={3}><MediaBox key={x._id} data={x}/></Grid>) }
+                      { albums.map(x => <Grid key={x._id} item xs={3}><MediaBox key={x._id} data={x} selectAlbum={setFullscreenShow} /></Grid>) }
                     </Grid>
                   : <Box textAlign='center'>Няма намерени албуми</Box>
             }
           </Box>
         </Scrollbars>
       </Box>
+      { fullscreenShow ? <FullscreenBox album={fullscreenShow._id} startIndex={fullscreenShow.startIndex} setAlbum={setFullscreenShow} /> : null }
       { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Container>
   )
