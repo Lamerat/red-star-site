@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
+import { redColor } from '../../config/constants'
 import { Box, Backdrop } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation, Keyboard  } from 'swiper'
@@ -13,6 +14,7 @@ const FullscreenBox = ({ album, startIndex, setAlbum }) => {
   const firstRenderRef = useRef(true)
 
   const [photos, setPhotos] = useState(null)
+  const [photoName, setPhotoName] = useState(null)
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
 
@@ -47,6 +49,7 @@ const FullscreenBox = ({ album, startIndex, setAlbum }) => {
 
   return (
     <Backdrop open={true} sx={{ zIndex: 10000, backgroundColor: 'black', m: '0 !important'}}>
+      <Box sx={{color: redColor, position: 'absolute', top: '16px', fontSize: '20px', fontFamily: 'CorsaGrotesk',}}>{photoName}</Box>
       {
         !photos
           ? <Box><CircularProgress size={200} /></Box>
@@ -59,6 +62,7 @@ const FullscreenBox = ({ album, startIndex, setAlbum }) => {
               keyboard={{ enabled: true }}
               modules={[Pagination, Autoplay, Navigation, Keyboard ]}
               style={{ display: 'flex', alignItems: 'center', margin: 24 }}
+              onSlideChange={(swiper) => setPhotoName(photos[swiper.realIndex].name)}
             >
               { photos.map(x =>
                 <SwiperSlide key={x._id}>

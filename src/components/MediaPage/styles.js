@@ -1,5 +1,3 @@
-// import { redColor } from '../../config/constants'
-
 export const mainPaper = {
   maxHeight: 'calc(100vh - 200px)',
   overflow: 'hidden',
