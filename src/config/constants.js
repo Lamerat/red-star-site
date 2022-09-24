@@ -16,9 +16,14 @@ export const overtimeTranslate = {
 }
 
 export const positionTranslate = {
-  goalie: 'Вратар',
-  guard: 'Защитник',
-  attacker: 'Нападател'
+  goalie: 'вратар',
+  guard: 'защитник',
+  attacker: 'нападател'
+}
+
+export const handTranslate = {
+  left: 'Лява',
+  right: 'Дясна'
 }
 
 export const mainPageSwiper = {

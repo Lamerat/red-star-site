@@ -16,3 +16,11 @@ export const averageStat = async () => {
   })
 }
 
+
+export const getSinglePlayer = async (id) => {
+  return fetch(`${API}/player/public/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
