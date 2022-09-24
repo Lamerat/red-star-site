@@ -16,3 +16,11 @@ export const getMontEvents = async (body) => {
     body: JSON.stringify({ ...body, team: TEAM_ID }),
   })
 }
+
+
+export const getSingleEvent = async (id) => {
+  return fetch(`${API}/event/public/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+}

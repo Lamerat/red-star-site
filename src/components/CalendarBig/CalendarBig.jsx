@@ -13,10 +13,12 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import moment from 'moment-timezone'
 import CalendarRow from './CalendarRow.jsx'
+import EventDetails from './EventDetails.jsx'
 
 const CalendarBig = () => {
   const firstRenderRef = useRef(true)
 
+  const [detailView, setDetailView] = useState({ show: false, event: null })
   const [calendar, setCalendar] = useState(createCalendarArray(new Date()))
   const [currentMount, setCurrentMount] = useState(new Date())
   const [events, setEvents] = useState(null)
@@ -75,7 +77,7 @@ const CalendarBig = () => {
                 : tableView
                   ? <>
                       <Box sx={calendarGrid}>
-                        { calendar.map((el, index) => el ? <CalendarBox key={index} day={el} data={haveEvent(el)} /> : <Box key={index} sx={outMontBox} />) }
+                        { calendar.map((el, index) => el ? <CalendarBox key={index} day={el} data={haveEvent(el)} detailFunc={setDetailView} /> : <Box key={index} sx={outMontBox} />) }
                       </Box>
                       <Box ml={1} mt={0.5} display='flex' alignItems='center'>
                         <Box display='flex' alignItems='center'>
@@ -93,6 +95,7 @@ const CalendarBig = () => {
           </Box>
         </Scrollbars>
       </Box>
+      { detailView.show ? <EventDetails event={detailView.event} errorFunc={setErrorDialog} closeFunc={setDetailView} /> : null }
       { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Container>
   )

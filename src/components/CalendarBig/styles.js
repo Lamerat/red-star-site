@@ -84,7 +84,8 @@ export const boxMainStyle = {
   border: '1px solid lightgray',
   backgroundColor: '#eeeeee',
   m: 0.5, position: 'relative',
-  fontFamily: 'CorsaGrotesk'
+  fontFamily: 'CorsaGrotesk',
+  cursor: 'pointer'
 }
 
 export const boxDayNumber = {
@@ -106,4 +107,36 @@ export const rowTimeStyle = {
   fontFamily: 'CorsaGrotesk',
   fontSize: '13px',
   pb: 0.2,
+}
+
+export const detailPreviewMain = {
+  backgroundColor: 'white',
+  backgroundImage: 'url(../../wp.jpg)',
+  backgroundSize: 'cover',
+  color: 'white'
+}
+
+export const detailPreviewWhite = {
+  backgroundColor: 'white',
+  color: 'black',
+  fontSize: '14px'
+}
+
+
+export const topPreview = {
+  display: 'grid',
+  gridTemplateColumns: '90px calc((100% - 90px) / 2) calc((100% - 90px) / 2)',
+  minHeight: '69px',
+  p: 1.5,
+  pb: 1,
+  backgroundColor: 'white',
+}
+
+export const detailTrainingImage =  {
+  maxHeight: '150px',
+  minHeight: '150px',
+  maxWidth: '150px',
+  minWidth: '150px',
+  ml: -2,
+  float: 'left'
 }

@@ -7,7 +7,7 @@ import parse from 'html-react-parser'
 import moment from 'moment-timezone'
 
 
-const CalendarBox = ({ day, data }) => {
+const CalendarBox = ({ day, data, detailFunc }) => {
   if (data) data = { ...data }
   if (data && data.count > 1) {
     const checkForGame = data.list.filter(x => x.type === 'game')
@@ -35,7 +35,10 @@ const CalendarBox = ({ day, data }) => {
   }
   
   return (
-    <Box sx={event ? boxMainStyle : { ...boxMainStyle, backgroundColor: 'white' }}>
+    <Box
+      sx={event ? boxMainStyle : { ...boxMainStyle, backgroundColor: 'white', cursor: 'default' }}
+      onClick={() => event ? detailFunc({ show: true, event: event._id }) : null}
+    >
       <Box sx={boxDayNumber}>{day}</Box>
       {
         !event

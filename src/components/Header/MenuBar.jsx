@@ -11,7 +11,6 @@ const MenuBar = () => {
   const history = useNavigate()
 
   const submenuAction = (event, address) => {
-    
     history(address)
     event.stopPropagation()
     setHoverButton(null)
