@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { menuBarStyle, buttonStyle, separatorStyle, menuItem, dropDown } from './styles'
-
+import { getArticles } from '../../api/articles'
+import ErrorDialog from '../ErrorDialog/ErrorDialog'
 
 const MenuBar = () => {
+  const firstRenderRef = useRef(true)
+
   const [hoverButton, setHoverButton] = useState(null)
+  const [articles, setArticles] = useState(null)
+  const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   const history = useNavigate()
 
@@ -15,6 +20,25 @@ const MenuBar = () => {
     event.stopPropagation()
     setHoverButton(null)
   }
+
+  useEffect(() => {
+    if(firstRenderRef.current) {
+      firstRenderRef.current = false
+      return
+    }
+
+    getArticles({ pageNumber: 1, pageSize: 10 })
+    .then(x => x.json())
+    .then(result => {
+      if (!result.success) throw new Error(result.message)
+      setArticles(result.payload.docs)
+    })
+    .catch(error => setErrorDialog({ show: true, message: error.message }))
+  }, [])
+
+  if (errorDialog.show) return <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} />
+
+  if (!articles) return null
 
   return (
     !isMobile
@@ -25,9 +49,14 @@ const MenuBar = () => {
             <Box sx={buttonStyle} onMouseEnter={() => setHoverButton(2)}>
               КЛУБ
               <Box sx={{ ...dropDown, display: hoverButton === 2 ? 'block' : 'none' }}>
-                <Box sx={menuItem} onClick={(event) =>submenuAction(event, '/about')}>ИСТОРИЯ</Box>
-                <Divider variant='middle'/>
-                <Box sx={menuItem} onClick={() => 1}>КОНТАКТИ</Box>
+                {
+                  articles.map((el, index) => (
+                    <React.Fragment key={el._id}>
+                      <Box sx={menuItem} onClick={(event) =>submenuAction(event, `/article/${el._id}`)}>{el.shortTitle}</Box>
+                      { index < articles.length - 1 ? <Divider variant='middle'/> : null }
+                    </React.Fragment>
+                  ))
+                }
               </Box>
             </Box>
             <Box sx={separatorStyle} />

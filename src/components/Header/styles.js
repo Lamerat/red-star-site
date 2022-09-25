@@ -46,6 +46,8 @@ export const menuItem = {
   height: '18px',
   fontSize: '14px',
   p: '6.5px 16px 11.5px 16px',
+  textTransform: 'uppercase',
+  whiteSpace: 'nowrap',
   '&:hover': { color: 'black' }
 }
 
