@@ -3,14 +3,14 @@ import { ThemeProvider } from '@mui/material/styles'
 import Header from './components/Header/Header'
 import HomePage from './components/HomePage/HomePage'
 import mainTheme from './theme/MainTheme.js'
-import './App.css'
-import AboutClub from './components/AboutClub/AboutClub'
 import NewsPage from './components/NewsPage/NewsPage'
 import SingleNewsPage from './components/SingleNewsPage/SingleNewsPage'
 import PlayersPage from './components/PlayersPage/PlayersPage'
 import CalendarBig from './components/CalendarBig/CalendarBig'
 import MediaPage from './components/MediaPage/MediaPage'
 import PlayerSinglePage from './components/PlayerSinglePage/PlayerSinglePage'
+import ArticlePage from './components/ArticlePage/ArticlePage'
+import './App.css'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Header />
         <Routes>
           <Route exact path='/' element={<HomePage />} />
-          <Route exact path='/about' element={<AboutClub />} />
+          <Route exact path='/article/:id' element={<ArticlePage />} />
           <Route exact path='/news' element={<NewsPage />} />
           <Route exact path='/news/:id' element={<SingleNewsPage />} />
           <Route exact path='/players/:filter' element={<PlayersPage />} />

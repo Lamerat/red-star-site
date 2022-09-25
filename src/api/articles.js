@@ -7,3 +7,11 @@ export const getArticles = async (body) => {
     body: JSON.stringify({ ...body, team: TEAM_ID }),
   })
 }
+
+
+export const getSingleArticle = async (id) => {
+  return fetch(`${API}/info/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
