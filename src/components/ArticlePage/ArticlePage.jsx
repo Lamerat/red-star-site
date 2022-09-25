@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Container, Box, Typography, LinearProgress } from '@mui/material'
 import { getSingleArticle } from '../../api/articles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { redColor } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { useParams } from 'react-router-dom'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import parse from 'html-react-parser'
+
 
 const mainPaper = {
   maxHeight: 'calc(100vh - 200px)',
@@ -26,7 +27,7 @@ const ArticlePage = () => {
   const { id } = useParams()
   
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if(firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

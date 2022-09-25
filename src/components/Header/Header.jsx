@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Container sx={{maxWidth: '1366px !important', pl: 2, pr: '17px', mt: 2, maxHeight: '114px'}} disableGutters={true}>
       <Stack direction='row' spacing={2} maxHeight='114px'>
-        <Box zIndex={1}><img src='../../logo.svg' alt='team_logo' width='178px' style={{ filter: 'drop-shadow(5px 5px 5px rgb(0 0 0 / 0.6))' }} /></Box>
+        <Box zIndex={1}><img src='https://lamerat.github.io/ChervenaZvezda/images/Logo.svg' alt='team_logo' width='178px' style={{ filter: 'drop-shadow(5px 5px 5px rgb(0 0 0 / 0.6))' }} /></Box>
         <Box width='100%' pt='14px' maxHeight='100px' zIndex={1}>
           <Box display='flex' justifyContent='space-between' alignItems='flex-end'>
             <Box sx={titleStyle}>RED STAR - Sofia</Box>
