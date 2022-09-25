@@ -7,6 +7,7 @@ import { listNewsRequest } from '../../api/news'
 import { useNavigate } from 'react-router-dom'
 import sanitizeHtml from 'sanitize-html'
 import CircularProgress from '@mui/material/CircularProgress'
+import { ENV } from '../../config/constants'
 
 const NewsBox = () => {
   const firstRenderRef = useRef(true)
@@ -30,7 +31,7 @@ const NewsBox = () => {
   }, [currentNews, news])
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

@@ -3,7 +3,7 @@ import { Container, Box, Typography, LinearProgress, Grid, IconButton, Switch, F
 import { getPlayersList, averageStat } from '../../api/player'
 import { mainPaper } from './styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { redColor } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { useParams } from 'react-router-dom'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import PlayerBox from './PlayerBox'
@@ -24,7 +24,7 @@ const PlayersPage = () => {
 
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

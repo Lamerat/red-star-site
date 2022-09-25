@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Container, Box, Typography, LinearProgress, CardMedia, IconButton } from '@mui/material'
-import { handTranslate, positionTranslate, redColor } from '../../config/constants'
+import { ENV, handTranslate, positionTranslate, redColor } from '../../config/constants'
 import { mainPaper, visitCardStyle, numberBoxStyle } from './styles'
 import { useNavigate } from 'react-router-dom'
 import { formatDate } from '../../common/help-functions'
@@ -25,7 +25,7 @@ const PlayerSinglePage = () => {
   const history = useNavigate()
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

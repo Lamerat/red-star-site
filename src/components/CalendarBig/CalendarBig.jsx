@@ -3,7 +3,7 @@ import { Container, Box, Typography, LinearProgress, IconButton } from '@mui/mat
 import { createCalendarArray } from '../../common/help-functions.js'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { getMontEvents } from '../../api/events.js'
-import { redColor } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { mainPaper, calendarGrid, outMontBox } from './styles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import CalendarBox from './CalendarBox.jsx'
@@ -26,7 +26,7 @@ const CalendarBig = () => {
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

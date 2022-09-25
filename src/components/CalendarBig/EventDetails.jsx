@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Container, Backdrop, Box, CircularProgress, IconButton, CardMedia, Stack } from '@mui/material'
 import { detailPreviewMain, topPreview, detailPreviewWhite, detailTrainingImage, detailVersusStyle, detailOverTimeStyle, detailPartsStyle, mainContainerStyle } from './styles'
 import { getDayNumber, getMonth, getTime, getYear } from '../../common/help-functions'
-import { overtimeTranslate, trainingImage } from '../../config/constants'
+import { ENV, overtimeTranslate, trainingImage } from '../../config/constants'
 import { getSingleEvent } from '../../api/events'
 import { redColor } from '../../config/constants'
 import CloseIcon from '@mui/icons-material/Close'
@@ -17,7 +17,7 @@ export const EventDetails = ({ event, closeFunc, errorFunc }) => {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Container, Box, Typography, LinearProgress, Grid } from '@mui/material'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { listAlbumsRequest } from '../../api/media'
-import { redColor } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { mainPaper } from './styles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import MediaBox from './MediaBox'
@@ -20,7 +20,7 @@ const MediaPage = () => {
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

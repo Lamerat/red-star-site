@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Container, Box, Typography, LinearProgress, Divider } from '@mui/material'
-import { singNewsPageSwiper } from '../../config/constants.js'
+import { ENV, singNewsPageSwiper } from '../../config/constants.js'
 import { mainPaper, newsBox, imageWrapper, dateStyle, dividerWrapper } from './styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { singleNewsRequest } from '../../api/news'
@@ -20,7 +20,7 @@ const SingleNewsPage = () => {
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

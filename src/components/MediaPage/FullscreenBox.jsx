@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { redColor } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { Box, Backdrop } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation, Keyboard  } from 'swiper'
@@ -33,7 +33,7 @@ const FullscreenBox = ({ album, startIndex, setAlbum }) => {
 
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

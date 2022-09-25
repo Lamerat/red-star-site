@@ -3,7 +3,7 @@ import { Box, Stack, CardMedia } from '@mui/material'
 import { dateTextStyle, mainBox, overTimeStyle, partsStyle, titleBox, versusStyle, logoStyle, loaderBox } from './styles'
 import { getLastNextGame } from '../../api/events'
 import { formatDate } from '../../common/help-functions'
-import { overtimeTranslate } from '../../config/constants'
+import { ENV, overtimeTranslate } from '../../config/constants'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -14,7 +14,7 @@ const GameBox = ({type}) => {
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

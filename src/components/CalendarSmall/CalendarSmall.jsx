@@ -6,6 +6,7 @@ import { dateBox, dateBoxActive, mainBox, titleBox, popoverPaper, elementsBox, l
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import CircularProgress from '@mui/material/CircularProgress'
 import EventRow from './EventRow.jsx'
+import { ENV } from '../../config/constants.js'
 
 
 const CalendarSmall = () => {
@@ -20,7 +21,7 @@ const CalendarSmall = () => {
   const open = Boolean(anchorEl)
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

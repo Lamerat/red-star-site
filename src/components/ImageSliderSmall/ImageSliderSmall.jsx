@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import { ENV } from '../../config/constants'
 
 const preloadStyle = {
   width: '100%',
@@ -47,8 +48,7 @@ const ImageSliderSmall = ({ settings, album, data }) => {
   }, [fullscreen, handleKeyUp])
 
   useEffect(() => {
-    
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

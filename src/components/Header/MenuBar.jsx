@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { menuBarStyle, buttonStyle, separatorStyle, menuItem, dropDown } from './styles'
 import { getArticles } from '../../api/articles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
+import { ENV } from '../../config/constants'
 
 const MenuBar = () => {
   const firstRenderRef = useRef(true)
@@ -22,7 +23,7 @@ const MenuBar = () => {
   }
 
   useEffect(() => {
-    if(firstRenderRef.current) {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }

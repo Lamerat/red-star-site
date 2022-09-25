@@ -27,8 +27,7 @@ const ArticlePage = () => {
   const { id } = useParams()
   
   useEffect(() => {
-    console.log(ENV)
-    if(firstRenderRef.current && ENV === 'development') {
+    if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
       return
     }
