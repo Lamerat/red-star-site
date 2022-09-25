@@ -12,7 +12,7 @@ import BannerPage from '../BannerPage/BannerPage'
 
 const HomePage = () => {
   return (
-    <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 2}} disableGutters={true}>
+    <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 1}} disableGutters={true}>
       <Box sx={mainPaper}>
         <Scrollbars style={{height: '100vh'}}>
           <Stack direction='row' spacing={3}>

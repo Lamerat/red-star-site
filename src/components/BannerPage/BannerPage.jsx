@@ -56,7 +56,7 @@ const tempData = [
 
 const BannerPage = () => {
   return (
-    <Container sx={{maxWidth: '1366px !important', marginTop: 3, fontFamily: 'CorsaGrotesk'}} disableGutters={true}>
+    <Container sx={{maxWidth: '1366px !important', marginTop: 3, pr:1, fontFamily: 'CorsaGrotesk'}} disableGutters={true}>
       <Grid container spacing={3}>
         {
           tempData.map(x => (
