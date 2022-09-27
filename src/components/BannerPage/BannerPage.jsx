@@ -1,76 +1,52 @@
-import React from 'react'
-import { Container, Box, CardMedia, Grid } from '@mui/material'
-
-
-const tempData = [
-  {
-    _id: 1,
-    image: 'https://iili.io/saRaEb.png',
-    description: 'Хокейна екипировка',
-    link: 'https://hockeycamel.com/'
-  },
-  {
-    _id: 2,
-    image: 'https://iili.io/sYyedQ.png',
-    description: 'Някакво описание',
-    link: 'https://us.ccmhockey.com/'
-  },
-  {
-    _id: 3,
-    image: 'https://iili.io/sYbk7I.png',
-    description: 'Някакво описание',
-    link: 'https://us.ccmhockey.com/'
-  },
-  {
-    _id: 4,
-    image: 'https://iili.io/saBwJe.png',
-    description: 'Някакво описание',
-    link: 'https://us.ccmhockey.com/'
-  },
-  {
-    _id: 5,
-    image: 'https://iili.io/saCkYX.png',
-    description: 'Някакво описание',
-    link: 'https://us.ccmhockey.com/'
-  },
-  {
-    _id: 6,
-    image: 'https://iili.io/saaD0u.png',
-    description: 'Някакво описание',
-    link: 'https://github.com/'
-  },
-  {
-    _id: 7,
-    image: 'https://iili.io/sa7dxt.png',
-    description: 'Някакво описание',
-    link: 'https://www.fightscout.app/'
-  },
-  {
-    _id: 8,
-    image: 'https://iili.io/salD9j.png',
-    description: 'Някакво описание',
-    link: 'https://www.youtube.com/'
-  }
-]
+import React, { useState, useEffect, useRef } from 'react'
+import { Container, Box, CardMedia, Grid, LinearProgress } from '@mui/material'
+import { ENV } from '../../config/constants'
+import { getBanners } from '../../api/banner'
+import ErrorDialog from '../ErrorDialog/ErrorDialog'
 
 
 const BannerPage = () => {
+  const firstRenderRef = useRef(true)
+
+  const [banners, setBanners] = useState(null)
+  const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
+
+  useEffect(() => {
+    if (firstRenderRef.current && ENV === 'development') {
+      firstRenderRef.current = false
+      return
+    }
+
+    getBanners({ pageNumber: 1, pageSize: 8 })
+    .then(x => x.json())
+    .then(result => {
+      if (!result.success) throw new Error(result.message)
+      setBanners(result.payload.docs)
+    })
+    .catch(error => setErrorDialog({ show: true, message: error.message }))
+  }, [])
+
+
   return (
     <Container sx={{maxWidth: '1366px !important', marginTop: 3, pr:1, fontFamily: 'CorsaGrotesk'}} disableGutters={true}>
-      <Grid container spacing={3}>
-        {
-          tempData.map(x => (
-            <Grid key={x._id} item xs={1.5}>
-              <Box sx={{ color: 'gray', fontSize: '12px', textAlign: 'center', cursor: 'pointer' } }onClick={() => window.open(x.link, "_blank")}>
-                <CardMedia component='img' image={x.image}/>
-                <Box mt={1}>{x.description}</Box>
-              </Box>
-            </Grid>
-          ))
-        }
-      </Grid>
+      {
+        !banners
+          ? <Box sx={{ minHeight: '82.719px', display: 'flex', alignItems: 'center', width: '100%' }}><LinearProgress sx={{ height: '20px', width: '100%' }} /></Box>
+          : <Grid container spacing={3}>
+            {  banners.map(x => (
+                <Grid key={x._id} item xs={1.5}>
+                  <Box sx={{ color: 'gray', fontSize: '12px', textAlign: 'center', cursor: 'pointer' } } onClick={() => window.open(x.link, "_blank")}>
+                    <CardMedia component='img' image={x.photo}/>
+                    <Box mt={1}>{x.text}</Box>
+                  </Box>
+                </Grid>
+              ))
+            }
+          </Grid>
+      }
+      { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Container>
   )
 }
-// https://iili.io/salD9j.png
+
 export default BannerPage
