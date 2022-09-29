@@ -36,7 +36,7 @@ const BannerPage = () => {
             {  banners.map(x => (
                 <Grid key={x._id} item xs={1.5}>
                   <Box sx={{ color: 'gray', fontSize: '12px', textAlign: 'center', cursor: 'pointer' } } onClick={() => window.open(x.link, "_blank")}>
-                    <CardMedia component='img' image={x.photo}/>
+                    <CardMedia component='img' sx={{maxHeight: '58px'}} image={x.photo}/>
                     <Box mt={1}>{x.text}</Box>
                   </Box>
                 </Grid>
