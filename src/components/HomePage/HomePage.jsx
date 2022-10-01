@@ -1,5 +1,5 @@
 import React from 'react'
-// import { isMobile } from 'react-device-detect'
+import { isMobile } from 'react-device-detect'
 import { Container, Box, Stack } from '@mui/material'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { mainPaper } from './styles'
@@ -11,6 +11,21 @@ import { mainPageSwiper } from '../../config/constants'
 import BannerPage from '../BannerPage/BannerPage'
 
 const HomePage = () => {
+
+  if (isMobile) return (
+    <Box sx={{color: 'white'}}>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+      <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
+    </Box>
+    
+  )
+
+
   return (
     <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 1}} disableGutters={true}>
       <Box sx={mainPaper}>

@@ -1,13 +1,32 @@
 import React from 'react'
 import { Container, Stack, Box, IconButton } from '@mui/material'
+import { titleStyle } from './styles'
+import { isMobile } from 'react-device-detect'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import MenuBar from './MenuBar'
-import { titleStyle } from './styles'
+import { titleStyleMobile } from './styles.mobile'
+import { redColor } from '../../config/constants'
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 const Header = () => {
+  if (isMobile) {
+    document.body.style.overflowY = 'auto'
+    document.body.style.backgroundImage = 'none'
+    document.body.style.backgroundColor = 'black'
+
+    return (
+      <Box sx={{maxHeight: '40px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: '#393939', position: 'fixed', top: 0}}>
+        <Box sx={titleStyleMobile}>RED STAR - Sofia</Box>
+        <Box sx={{backgroundColor: redColor}}>
+          <IconButton><MenuIcon sx={{color: 'white'}} /></IconButton>
+        </Box>
+      </Box>
+    )
+  }
+
   return (
     <Container sx={{maxWidth: '1366px !important', pl: 2, pr: '17px', mt: 2, maxHeight: '114px'}} disableGutters={true}>
       <Stack direction='row' spacing={2} maxHeight='114px'>
