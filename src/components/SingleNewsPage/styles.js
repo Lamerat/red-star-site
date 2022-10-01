@@ -40,8 +40,9 @@ export const dateStyle = {
 export const dividerWrapper = {
   position: 'absolute',
   pb: 2,
+  left: '50%',
   height: '100%',
-  width: '100%',
+  width: '1px',
   marginTop: '-432px',
   display: 'flex',
   justifyContent: 'center'
