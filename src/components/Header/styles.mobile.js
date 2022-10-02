@@ -3,7 +3,7 @@ export const titleStyleMobile = {
   color: 'white',
   fontSize: '2rem',
   letterSpacing: '1px',
-  pl: 2,
+  pl: 1.2,
   width: '100%',
   pt: 1.2,
   textShadow: '1.5px 1.5px 1.5px black'

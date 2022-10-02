@@ -24,8 +24,7 @@ const Header = () => {
     return (
       <Box sx={{ position: 'fixed', top: 0, width: '100%', overflowY: 'scroll', maxHeight: '100%', zIndex: 100000 }}>
         <Box sx={{maxHeight: '54px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: '#393939' }}>
-          <Box zIndex={1} ml={1} mt={1}><img src='https://lamerat.github.io/ChervenaZvezda/images/Logo.svg' alt='team_logo' width='100px' style={{ filter: 'drop-shadow(3px 3px 3px rgb(0 0 0 / 0.6))' }} /></Box>
-          <Box sx={titleStyleMobile}>RED STAR</Box>
+          <Box sx={titleStyleMobile}>RED STAR - Sofia</Box>
           <Box sx={{backgroundColor: redColor}} >
             <IconButton size='large' onClick={() => setMobileMenu(!mobileMenu)}>
               { mobileMenu ? <CloseIcon sx={{color: 'white', fontSize: '30px'}} /> : <MenuIcon sx={{color: 'white', fontSize: '30px'}} /> }

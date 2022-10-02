@@ -94,7 +94,7 @@ const MenuBar = ({ mobileControl }) => {
             <Box sx={separatorStyle} />
           </Box>
         </Box>
-      : <Box sx={{ backgroundColor: redColor, color: 'white', fontFamily: 'CorsaGrotesk', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px', pt: 6 }}>
+      : <Box sx={{ backgroundColor: redColor, color: 'white', fontFamily: 'CorsaGrotesk', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>
           <Box sx={mobileMenuRow} onClick={(event) => mobileMenuAction(event, '/')}>НАЧАЛО</Box>
           <Box sx={mobileMenuRowWithSub(mobileSub.club)}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => setMobileSub({ ...mobileSub, club: !mobileSub.club })}>
