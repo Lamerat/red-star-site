@@ -1,17 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { isMobile } from 'react-device-detect'
-import { Box, Divider } from '@mui/material'
+import { Box, Divider, Collapse } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { menuBarStyle, buttonStyle, separatorStyle, menuItem, dropDown } from './styles'
 import { getArticles } from '../../api/articles'
-import ErrorDialog from '../ErrorDialog/ErrorDialog'
+import { redColor } from '../../config/constants'
 import { ENV } from '../../config/constants'
+import ErrorDialog from '../ErrorDialog/ErrorDialog'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import { mobileMenuRow, mobileMenuRowWithSub, rotateAngle } from './styles.mobile'
 
-const MenuBar = () => {
+const MenuBar = ({ mobileControl }) => {
   const firstRenderRef = useRef(true)
 
   const [hoverButton, setHoverButton] = useState(null)
   const [articles, setArticles] = useState(null)
+  const [mobileSub, setMobileSub] = useState({ club: false, team: false })
   const [errorDialog, setErrorDialog] = useState({ show: false, message: '' })
 
   const history = useNavigate()
@@ -36,6 +40,16 @@ const MenuBar = () => {
     })
     .catch(error => setErrorDialog({ show: true, message: error.message }))
   }, [])
+
+
+  const mobileMenuAction = (event, address) => {
+    console.log(event)
+    mobileControl(false)
+    setMobileSub({ club: false, team: false })
+    event.stopPropagation()
+    history(address)
+  }
+
 
   if (errorDialog.show) return <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} />
 
@@ -80,7 +94,43 @@ const MenuBar = () => {
             <Box sx={separatorStyle} />
           </Box>
         </Box>
-      : null
+      : <Box sx={{ backgroundColor: redColor, color: 'white', fontFamily: 'CorsaGrotesk', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px', pt: 6 }}>
+          <Box sx={mobileMenuRow} onClick={(event) => mobileMenuAction(event, '/')}>НАЧАЛО</Box>
+          <Box sx={mobileMenuRowWithSub(mobileSub.club)}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => setMobileSub({ ...mobileSub, club: !mobileSub.club })}>
+              <Box>КЛУБ</Box>
+              <NavigateNextIcon sx={rotateAngle(mobileSub.club)} />
+            </Box>
+            <Collapse in={mobileSub.club} sx={{ ml: 2, color: 'black' }}>
+              {
+                articles.map((el, index) => (
+                  <Box
+                    key={el._id}
+                    sx={{ ...mobileMenuRow, borderColor: index === articles.length - 1 ? 'transparent' : 'black', textTransform: 'uppercase', fontWeight: '500' }}
+                    onClick={(event) =>mobileMenuAction(event, `/article/${el._id}`)}
+                  >
+                    {el.shortTitle}
+                  </Box>)
+                )
+              }
+            </Collapse>
+          </Box>
+          <Box sx={mobileMenuRow} onClick={(event) => mobileMenuAction(event, '/news')}>НОВИНИ</Box>
+          <Box sx={mobileMenuRowWithSub(mobileSub.team)}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => setMobileSub({ ...mobileSub, team: !mobileSub.team })}>
+              <Box>ОТБОР</Box>
+              <NavigateNextIcon sx={rotateAngle(mobileSub.team)} />
+            </Box>
+            <Collapse in={mobileSub.team} sx={{ ml: 2, color: 'black' }}>
+              <Box sx={{ ...mobileMenuRow, borderColor: 'black', fontWeight: '500'}} onClick={(event) => mobileMenuAction(event, '/players/all')}>ВСИЧКИ</Box>
+              <Box sx={{ ...mobileMenuRow, borderColor: 'black', fontWeight: '500'}} onClick={(event) => mobileMenuAction(event, '/players/goalie')}>ВРАТАРИ</Box>
+              <Box sx={{ ...mobileMenuRow, borderColor: 'black', fontWeight: '500'}} onClick={(event) => mobileMenuAction(event, '/players/guard')}>ЗАЩИТНИЦИ</Box>
+              <Box sx={{ ...mobileMenuRow, borderColor: 'transparent', fontWeight: '500'}} onClick={(event) => mobileMenuAction(event, '/players/attacker')}>НАПАДАТЕЛИ</Box>
+            </Collapse>
+          </Box>
+          <Box sx={mobileMenuRow} onClick={(event) => mobileMenuAction(event, '/media')}>МЕДИЯ</Box>
+          <Box sx={{ ...mobileMenuRow, borderBottom: null }} onClick={(event) => mobileMenuAction(event, '/calendar')}>КАЛЕНДАР</Box>
+        </Box>
   )
 }
 

@@ -3,6 +3,7 @@ import { Container, Box, Typography, LinearProgress, Grid } from '@mui/material'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { listAlbumsRequest } from '../../api/media'
 import { ENV, redColor } from '../../config/constants'
+import { isMobile } from 'react-device-detect'
 import { mainPaper } from './styles'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import MediaBox from './MediaBox'
@@ -48,6 +49,19 @@ const MediaPage = () => {
       setQuery({ ...query, pageNumber: query.pageNumber + 1, hasNextPage: false })
     }
   }
+
+  if (isMobile) return (
+    <Box sx={{ mt: 4, p: 1 }}>
+      {
+              !albums
+                ? <LinearProgress sx={{height: '20px'}} />
+                : albums.length
+                  ? albums.map(x => <MediaBox key={x._id} data={x} selectAlbum={setFullscreenShow} />)
+                    
+                  : <Box textAlign='center'>Няма намерени албуми</Box>
+            }
+    </Box>
+  )
 
   return (
     <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 2}} disableGutters={true}>

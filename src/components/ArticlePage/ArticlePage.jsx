@@ -3,6 +3,7 @@ import { Container, Box, Typography, LinearProgress } from '@mui/material'
 import { getSingleArticle } from '../../api/articles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { ENV, redColor } from '../../config/constants'
+import { isMobile } from 'react-device-detect'
 import { useParams } from 'react-router-dom'
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import parse from 'html-react-parser'
@@ -40,6 +41,19 @@ const ArticlePage = () => {
       })
       .catch(error => setErrorDialog({ show: true, message: error.message }))
   }, [id])
+
+
+  if (isMobile) return (
+    <Box sx={{backgroundColor: 'white', mt: '54px', p: 1}}>
+      {
+              article
+                ? parse(article.text)
+                : <LinearProgress sx={{height: '20px'}} />
+            }
+      { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
+    </Box>
+  )
+
 
   return (
     <Container sx={{maxWidth: '1366px !important', marginTop: 3, pl: 2, pr: 2}} disableGutters={true}>

@@ -1,28 +1,40 @@
-import React from 'react'
-import { Container, Stack, Box, IconButton } from '@mui/material'
+import React, { useState } from 'react'
+import { Container, Stack, Box, IconButton, Collapse } from '@mui/material'
+import { redColor } from '../../config/constants'
 import { titleStyle } from './styles'
 import { isMobile } from 'react-device-detect'
+import { titleStyleMobile } from './styles.mobile'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import MenuBar from './MenuBar'
-import { titleStyleMobile } from './styles.mobile'
-import { redColor } from '../../config/constants'
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from '@mui/icons-material/Menu'
+import CloseIcon from '@mui/icons-material/Close'
+
 
 
 const Header = () => {
+  const [mobileMenu, setMobileMenu] = useState(false)
+
   if (isMobile) {
     document.body.style.overflowY = 'auto'
     document.body.style.backgroundImage = 'none'
     document.body.style.backgroundColor = 'black'
 
     return (
-      <Box sx={{maxHeight: '40px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: '#393939', position: 'fixed', top: 0}}>
-        <Box sx={titleStyleMobile}>RED STAR - Sofia</Box>
-        <Box sx={{backgroundColor: redColor}}>
-          <IconButton><MenuIcon sx={{color: 'white'}} /></IconButton>
+      <Box sx={{ position: 'fixed', top: 0, width: '100%', overflowY: 'scroll', maxHeight: '100%', zIndex: 100000 }}>
+        <Box sx={{maxHeight: '54px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: '#393939' }}>
+          <Box zIndex={1} ml={1} mt={1}><img src='https://lamerat.github.io/ChervenaZvezda/images/Logo.svg' alt='team_logo' width='100px' style={{ filter: 'drop-shadow(3px 3px 3px rgb(0 0 0 / 0.6))' }} /></Box>
+          <Box sx={titleStyleMobile}>RED STAR</Box>
+          <Box sx={{backgroundColor: redColor}} >
+            <IconButton size='large' onClick={() => setMobileMenu(!mobileMenu)}>
+              { mobileMenu ? <CloseIcon sx={{color: 'white', fontSize: '30px'}} /> : <MenuIcon sx={{color: 'white', fontSize: '30px'}} /> }
+            </IconButton>
+          </Box>
         </Box>
+        <Collapse in={mobileMenu}>
+          <MenuBar mobileControl={setMobileMenu} />
+        </Collapse>
       </Box>
     )
   }
