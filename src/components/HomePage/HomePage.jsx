@@ -13,7 +13,7 @@ import BannerPage from '../BannerPage/BannerPage'
 const HomePage = () => {
 
   if (isMobile) return (
-    <Box sx={{color: 'white'}}>
+    <Box sx={{color: 'white', mt: '54px'}}>
       <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
       <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>
       <Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box><Box>test</Box>

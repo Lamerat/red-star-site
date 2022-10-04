@@ -10,7 +10,7 @@ import ErrorDialog from '../ErrorDialog/ErrorDialog'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import { mobileMenuRow, mobileMenuRowWithSub, rotateAngle } from './styles.mobile'
 
-const MenuBar = ({ mobileControl }) => {
+const MenuBar = ({ mobileControl, hideLogo }) => {
   const firstRenderRef = useRef(true)
 
   const [hoverButton, setHoverButton] = useState(null)
@@ -94,7 +94,7 @@ const MenuBar = ({ mobileControl }) => {
             <Box sx={separatorStyle} />
           </Box>
         </Box>
-      : <Box sx={{ backgroundColor: redColor, color: 'white', fontFamily: 'CorsaGrotesk', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>
+      : <Box sx={{ backgroundColor: redColor, color: 'white', fontFamily: 'CorsaGrotesk', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px', pt: hideLogo ? 0 : 3 }}>
           <Box sx={mobileMenuRow} onClick={(event) => mobileMenuAction(event, '/')}>НАЧАЛО</Box>
           <Box sx={mobileMenuRowWithSub(mobileSub.club)}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => setMobileSub({ ...mobileSub, club: !mobileSub.club })}>

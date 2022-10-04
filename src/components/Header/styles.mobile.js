@@ -6,7 +6,8 @@ export const titleStyleMobile = {
   pl: 1.2,
   width: '100%',
   pt: 1.2,
-  textShadow: '1.5px 1.5px 1.5px black'
+  textShadow: '1.5px 1.5px 1.5px black',
+  whiteSpace: 'nowrap',
 }
 
 

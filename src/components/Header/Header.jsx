@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Container, Stack, Box, IconButton, Collapse } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Container, Stack, Box, IconButton, Collapse, Slide } from '@mui/material'
 import { redColor } from '../../config/constants'
 import { titleStyle } from './styles'
 import { isMobile } from 'react-device-detect'
@@ -15,6 +15,23 @@ import CloseIcon from '@mui/icons-material/Close'
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
+  const [hideLogo, setHideLogo] = useState(false)
+
+  useEffect(() => {
+    if (!isMobile) return
+
+    const handleScroll = event => {
+      if (window.scrollY >= 65) {
+        setHideLogo(true)
+      } else {
+        setHideLogo(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   if (isMobile) {
     document.body.style.overflowY = 'auto'
@@ -22,19 +39,32 @@ const Header = () => {
     document.body.style.backgroundColor = 'black'
 
     return (
-      <Box sx={{ position: 'fixed', top: 0, width: '100%', overflowY: 'scroll', maxHeight: '100%', zIndex: 100000 }}>
-        <Box sx={{maxHeight: '54px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: '#393939' }}>
-          <Box sx={titleStyleMobile}>RED STAR - Sofia</Box>
-          <Box sx={{backgroundColor: redColor}} >
+      <>
+      <Box sx={{position: 'absolute', top: 8, left: 8, zIndex: 100001}}><img src='https://lamerat.github.io/ChervenaZvezda/images/Logo.svg' alt='team_logo' height='75px' style={{ filter: 'drop-shadow(5px 5px 5px rgb(0 0 0 / 0.6))' }} /></Box>
+      <Box sx={{ position: 'fixed', top: 0, width: '100%', overflowY: 'scroll', maxHeight: '100%', zIndex: 10000 }}>
+        <Box sx={{maxHeight: '54px', width: '100%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'black'}}>
+          <Slide direction='right' in={hideLogo} mountOnEnter unmountOnExit timeout={600}>
+            <Box width='100%' position='absolute' sx={{backgroundColor: '#393939', minHeight: '54px', zIndex: 0}} />
+          </Slide>
+          <Box width='100%' display='flex' position='relative'>
+            <Collapse orientation='horizontal' in={!hideLogo} timeout={600}>
+              <Box sx={{minWidth: '85px'}}></Box>
+            </Collapse>
+            <Collapse orientation='horizontal' in={hideLogo} timeout={600} collapsedSize={160}>
+              <Box sx={titleStyleMobile}>RED STAR - Sofia</Box>
+            </Collapse>
+          </Box>
+          <Box sx={{backgroundColor: redColor, zIndex: 2}} >
             <IconButton size='large' onClick={() => setMobileMenu(!mobileMenu)}>
               { mobileMenu ? <CloseIcon sx={{color: 'white', fontSize: '30px'}} /> : <MenuIcon sx={{color: 'white', fontSize: '30px'}} /> }
             </IconButton>
           </Box>
         </Box>
         <Collapse in={mobileMenu}>
-          <MenuBar mobileControl={setMobileMenu} />
+          <MenuBar mobileControl={setMobileMenu} hideLogo={hideLogo} />
         </Collapse>
       </Box>
+      </>
     )
   }
 
