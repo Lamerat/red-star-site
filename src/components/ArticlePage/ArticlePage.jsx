@@ -44,12 +44,17 @@ const ArticlePage = () => {
 
 
   if (isMobile) return (
-    <Box sx={{backgroundColor: 'white', mt: '54px', p: 1}}>
+    <Box sx={{backgroundColor: 'white', mt: '54px', p: 1.5, pt: 1}}>
       {
-              article
-                ? parse(article.text)
-                : <LinearProgress sx={{height: '20px'}} />
-            }
+        article
+          ? <React.Fragment>
+              <Box display='flex' alignItems='center' justifyContent='flex-end' borderBottom={1} borderColor={redColor} mb={1} pl={10} textAlign='right'>
+                <Typography fontFamily='CorsaGrotesk' color={redColor} variant='h6' pb={0.5}>{article.longTitle}</Typography>
+              </Box>
+              { parse(article.text) }
+            </React.Fragment>
+          : <LinearProgress sx={{height: '20px'}} />
+      }
       { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
     </Box>
   )

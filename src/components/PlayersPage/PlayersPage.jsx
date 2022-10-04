@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Container, Box, Typography, LinearProgress, Grid, IconButton, Switch, FormControlLabel, Slide, Stack } from '@mui/material'
 import { getPlayersList, averageStat } from '../../api/player'
 import { mainPaper } from './styles'
+import { isMobile } from 'react-device-detect'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { ENV, redColor } from '../../config/constants'
 import { useParams } from 'react-router-dom'
@@ -80,6 +81,39 @@ const PlayersPage = () => {
     const oldValue = query.position[field]
     const newPositions = { ...query.position, [field]: !oldValue }
     setQuery({ ...defaultQuery, position: newPositions })
+  }
+
+
+  if (isMobile) {
+    return (
+      <Box sx={{backgroundColor: 'white', mt: '54px', p: 1.5, pt: 1}}>
+        <Box sx={{ width: '100%', backgroundColor: 'white' }}>
+          {
+            !query.position
+              ? null
+              : <Stack spacing={1} direction='column' sx={{ backgroundColor: '#ababab' }}>
+                  <FormControlLabel
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='small' checked={query.position.goalie} onChange={() => switchChange('goalie')}/> }
+                    label='вратари'
+                  />
+                  <FormControlLabel
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='small' checked={query.position.guard} onChange={() => switchChange('guard')}/> }
+                    label='защитници'
+                  />
+                  <FormControlLabel
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='small' checked={query.position.attacker} onChange={() => switchChange('attacker')}/> }
+                    label='нападатели'
+                  />
+                </Stack>
+          }
+          
+        </Box>
+        { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
+      </Box>
+    )
   }
 
   
