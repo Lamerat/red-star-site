@@ -86,31 +86,46 @@ const PlayersPage = () => {
 
   if (isMobile) {
     return (
-      <Box sx={{backgroundColor: 'white', mt: '54px', p: 1.5, pt: 1}}>
-        <Box sx={{ width: '100%', backgroundColor: 'white' }}>
+      <Box mt='54px'>
+        <Box sx={{p: 1.5, pt: 1, backgroundColor: '#ababab'}}>
           {
             !query.position
               ? null
-              : <Stack spacing={1} direction='column' sx={{ backgroundColor: '#ababab' }}>
+              : <Box display='flex' flexDirection='column'>
                   <FormControlLabel
-                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
-                    control={ <Switch size='small' checked={query.position.goalie} onChange={() => switchChange('goalie')}/> }
+                    sx={{m: 0}}
+                    labelPlacement='start'
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '16px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='medium' checked={query.position.goalie} onChange={() => switchChange('goalie')}/> }
                     label='вратари'
                   />
                   <FormControlLabel
-                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
-                    control={ <Switch size='small' checked={query.position.guard} onChange={() => switchChange('guard')}/> }
+                    sx={{m: 0}}
+                    labelPlacement='start'
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '16px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='medium' checked={query.position.guard} onChange={() => switchChange('guard')}/> }
                     label='защитници'
                   />
                   <FormControlLabel
-                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '14px', pb: 0.3, ml: 0.3 } } }
-                    control={ <Switch size='small' checked={query.position.attacker} onChange={() => switchChange('attacker')}/> }
+                    sx={{m: 0}}
+                    labelPlacement='start'
+                    componentsProps={ { typography: { fontFamily: 'CorsaGrotesk', fontSize: '16px', pb: 0.3, ml: 0.3 } } }
+                    control={ <Switch size='medium' checked={query.position.attacker} onChange={() => switchChange('attacker')}/> }
                     label='нападатели'
                   />
-                </Stack>
+                </Box>
           }
-          
-        </Box>
+          </Box>
+          <Stack sx={{p: 1, backgroundColor: 'black'}} direction='column' spacing={4}>
+          {
+              !players
+                ? <LinearProgress sx={{height: '20px'}} />
+                : players.length
+                  ?  players.map(x => <PlayerBox key={x._id} data={x}/>)
+                  : <Box textAlign='center'>Няма намерени играчи</Box>
+            }
+          </Stack>
+        
         { errorDialog.show ? <ErrorDialog text={errorDialog.message} closeFunc={setErrorDialog} /> : null }
       </Box>
     )
