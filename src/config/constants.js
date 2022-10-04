@@ -1,6 +1,6 @@
 import { Autoplay, Pagination } from 'swiper'
 
-export const ENV = process.env.REACT_ENV || 'development'
+export const ENV = process.env.REACT_ENV || 'production'
 export const API = process.env.REACT_APP_API || 'https://hockey-site-dev.herokuapp.com'
 // export const API = 'http://localhost:5000'
 
