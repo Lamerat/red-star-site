@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-// import { isMobile } from 'react-device-detect'
+import { isMobile } from 'react-device-detect'
 import { Box, Stack, CardMedia } from '@mui/material'
 import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle, dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle } from './styles'
 import { formatDate, getDayNumber, getMonth } from '../../common/help-functions'
@@ -8,6 +8,11 @@ import { useNavigate } from 'react-router-dom'
 import sanitizeHtml from 'sanitize-html'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ENV } from '../../config/constants'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 const NewsBox = () => {
   const firstRenderRef = useRef(true)
@@ -18,7 +23,7 @@ const NewsBox = () => {
   const history = useNavigate()
 
   useEffect(() => {
-    if (!news) return
+    if (!news || isMobile) return
     const checkForMessages = setInterval(() => {
       if (currentNews >= news.length - 1) {
         setCurrentNews(0);
@@ -52,6 +57,28 @@ const NewsBox = () => {
     }
     return simpleText
   }
+
+  if (isMobile && !news) return null
+
+  if (isMobile) return (
+    <Swiper
+      loop={false}
+      autoplay={{delay: 5000, disableOnInteraction: true}}
+      modules={[Autoplay]}
+      pagination={{ clickable: true }}
+    >
+      {
+        news.map(x => 
+          <SwiperSlide style={{width: '100%'}}>
+            <Box>
+              <CardMedia component='img' image={x.coverPhoto.address} sx={{ maxHeight: '250px' }}/>
+            </Box>
+          </SwiperSlide>
+        )
+      }
+    </Swiper>
+  )
+
 
   if (!news) return <Box sx={loaderBox}><CircularProgress size='200px' /></Box>
 
