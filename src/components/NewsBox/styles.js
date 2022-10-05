@@ -132,3 +132,15 @@ export const currentNewsTab = {
   flexDirection: 'column',
   backgroundColor: 'red'
 }
+
+export const mobileTitleBox = {
+  color: 'white',
+  width: 'calc(100vw - 24px)',
+  maxWidth: '100vw',
+  fontSize: '14px',
+  position: 'absolute',
+  bottom: 0,
+  backgroundColor: 'rgba(74,74,74,.6)',
+  fontFamily: 'CorsaGrotesk',
+  p: 1.5
+}

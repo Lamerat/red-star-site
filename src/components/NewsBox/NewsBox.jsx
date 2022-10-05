@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, Stack, CardMedia } from '@mui/material'
-import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle, dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle } from './styles'
+import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle,
+  dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle, mobileTitleBox
+} from './styles'
 import { formatDate, getDayNumber, getMonth } from '../../common/help-functions'
 import { listNewsRequest } from '../../api/news'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +11,7 @@ import sanitizeHtml from 'sanitize-html'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ENV } from '../../config/constants'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
+import { Autoplay } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -35,6 +37,7 @@ const NewsBox = () => {
     return () => clearInterval(checkForMessages);
   }, [currentNews, news])
 
+
   useEffect(() => {
     if (firstRenderRef.current && ENV === 'development') {
       firstRenderRef.current = false
@@ -50,6 +53,7 @@ const NewsBox = () => {
       .catch(e => console.log(e.message))
   }, [])
 
+
   const htmlTextFix = (htmlText) => {
     const simpleText = sanitizeHtml(news[currentNews].text, { allowedTags: []})
     if (simpleText.length > 180) {
@@ -58,25 +62,37 @@ const NewsBox = () => {
     return simpleText
   }
 
+
   if (isMobile && !news) return null
 
   if (isMobile) return (
+    <>
     <Swiper
       loop={false}
       autoplay={{delay: 5000, disableOnInteraction: true}}
       modules={[Autoplay]}
       pagination={{ clickable: true }}
+      onRealIndexChange={index => setCurrentNews(index.activeIndex)}
     >
       {
-        news.map(x => 
-          <SwiperSlide style={{width: '100%'}}>
+        news.map((el, index) => 
+          <SwiperSlide key={el._id} style={{width: '100vh'}}>
             <Box>
-              <CardMedia component='img' image={x.coverPhoto.address} sx={{ maxHeight: '250px' }}/>
+              <Box sx={{position: 'relative'}}>
+                <CardMedia component='img' image={el.coverPhoto.address} sx={{ maxHeight: '220px', height: '220px', minWidth: '100vw', width: '100vh', maxWidth: '100vw' }}/>
+                <Box sx={mobileTitleBox}>
+                  {el.title}
+                </Box>
+              </Box>
             </Box>
           </SwiperSlide>
         )
       }
     </Swiper>
+      <Box sx={{display: 'flex', minHeight: '3px', mt: 0.5}}>
+        { Array(news.length).fill(0).map((_, index) => <Box key={index} sx={{ minWidth: 'calc(100%/5)', backgroundColor: index === currentNews ? 'red' : 'gray' }}/>) }
+      </Box>
+    </>
   )
 
 
