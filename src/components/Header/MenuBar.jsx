@@ -43,7 +43,6 @@ const MenuBar = ({ mobileControl, hideLogo }) => {
 
 
   const mobileMenuAction = (event, address) => {
-    console.log(event)
     mobileControl(false)
     setMobileSub({ club: false, team: false })
     event.stopPropagation()

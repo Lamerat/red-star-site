@@ -153,3 +153,23 @@ export const mobileImageStyle = {
   width: '100vh',
   maxWidth: '100vw'
 }
+
+export const titleBox = {
+  backgroundColor: redColor,
+  width: 'calc(100% - 16px)',
+  maxWidth: 'calc(100% - 16px)',
+  color: 'white',
+  fontFamily: 'CorsaGrotesk',
+  minHeight: '17px',
+  fontSize: '13.5px',
+  letterSpacing: '0.5px',
+  fontWeight: 'bold',
+  display: 'flex',
+  justifyContent: 'space-between',
+  p: '5.5px 8px 10.5px 8px',
+}
+
+export const dateTextStyle = {
+  fontSize: '12px',
+  m: '2px 0px 0px 0px'
+}

@@ -9,16 +9,19 @@ import CalendarSmall from '../CalendarSmall/CalendarSmall'
 import ImageSliderSmall from '../ImageSliderSmall/ImageSliderSmall'
 import { mainPageSwiper } from '../../config/constants'
 import BannerPage from '../BannerPage/BannerPage'
+import MobileHomeMedia from '../MobileHomeMedia/MobileHomeMedia'
 
 const HomePage = () => {
 
   if (isMobile) return (
-    <Box sx={{mt: '54px', pt: 2}}>
+    <Box sx={{mt: '54px', pt: 3}}>
       <NewsBox />
       <Stack spacing={2} mt={2}>
         <GameBox type='last' />
         <GameBox type='next' />
         <CalendarSmall />
+        <MobileHomeMedia />
+        <BannerPage />
       </Stack>
     </Box>
   )

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, Stack, CardMedia } from '@mui/material'
 import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle,
-  dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle, mobileTitleBox, mobileImageStyle
+  dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle, mobileTitleBox, mobileImageStyle, titleBox, dateTextStyle
 } from './styles'
 import { formatDate, getDayNumber, getMonth } from '../../common/help-functions'
 import { listNewsRequest } from '../../api/news'
@@ -67,6 +67,10 @@ const NewsBox = () => {
 
   if (isMobile) return (
     <React.Fragment>
+      <Box sx={titleBox}>
+        <Box>НОВИНИ</Box>
+        <Box sx={dateTextStyle}>{formatDate(news[currentNews].createdAt)}</Box>
+      </Box>
       <Swiper
         loop={false}
         autoplay={{delay: 5000, disableOnInteraction: false}}
