@@ -75,7 +75,7 @@ const NewsBox = () => {
         onRealIndexChange={index => setCurrentNews(index.activeIndex)}
       >
         {
-          news.map((el, index) => 
+          news.map(el =>
             <SwiperSlide key={el._id} style={{width: '100vh'}}>
               <Box>
                 <Box sx={{position: 'relative'}}>

@@ -1,31 +1,32 @@
 import { redColor } from '../../config/constants'
+import { isMobile } from 'react-device-detect'
 
 export const loaderBox = {
-  minWidth: 'calc(100% - 2px)',
+  minWidth: isMobile ? '100%' : 'calc(100% - 2px)',
   height: '495px',
   maxHeight: '274px',
-  border: '1px solid black',
+  border: isMobile ? null : '1px solid black',
   backgroundColor: 'white',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  filter: 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.8))',
+  filter: isMobile ? null : 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.8))',
 }
 
 export const mainBox = {
-  minWidth: 'calc(100% - 2px)',
+  minWidth: isMobile ? '100%' : 'calc(100% - 2px)',
   backgroundColor: 'white',
-  border: '1px solid black',
+  border: isMobile ? null : '1px solid black',
   display: 'flex',
   flexDirection: 'column',
-  filter: 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.8))'
+  filter: isMobile ? null : 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.8))',
 }
 
 export const titleBox = {
   backgroundColor: redColor,
   width: 'calc(100% - 16px)',
   maxWidth: 'calc(100% - 16px)',
-  borderBottom: '1px solid black',
+  borderBottom: isMobile ? null : '1px solid black',
   color: 'white',
   fontFamily: 'CorsaGrotesk',
   minHeight: '17px',

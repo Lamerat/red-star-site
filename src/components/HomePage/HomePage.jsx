@@ -13,10 +13,14 @@ import BannerPage from '../BannerPage/BannerPage'
 const HomePage = () => {
 
   if (isMobile) return (
-    <Box sx={{color: 'white', mt: '54px', pt: 0}}>
+    <Box sx={{mt: '54px', pt: 2}}>
       <NewsBox />
+      <Stack spacing={2} mt={2}>
+        <GameBox type='last' />
+        <GameBox type='next' />
+        <CalendarSmall />
+      </Stack>
     </Box>
-    
   )
 
 
@@ -30,8 +34,8 @@ const HomePage = () => {
               <ImageSliderSmall settings={mainPageSwiper} />
             </Stack>
             <Stack spacing={3} maxWidth='330px'>
-              <GameBox type='next' />
               <GameBox type='last' />
+              <GameBox type='next' />
               <CalendarSmall />
             </Stack>
           </Stack>
