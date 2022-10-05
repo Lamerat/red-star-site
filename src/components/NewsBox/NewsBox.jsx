@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, Stack, CardMedia } from '@mui/material'
 import { activeMarkerStyle, activeTitleStyle, contentStyle, currentContentStyle, currentNewsTab, currentTitleStyle, dateBoxStyle, dateMonthStyle,
-  dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle, mobileTitleBox
+  dateNumberStyle, leftSideStyle, loaderBox, markerStyle, newsTab, stackStyle, titleStyle, mobileTitleBox, mobileImageStyle
 } from './styles'
 import { formatDate, getDayNumber, getMonth } from '../../common/help-functions'
 import { listNewsRequest } from '../../api/news'
 import { useNavigate } from 'react-router-dom'
 import sanitizeHtml from 'sanitize-html'
 import CircularProgress from '@mui/material/CircularProgress'
-import { ENV } from '../../config/constants'
+import { ENV, redColor } from '../../config/constants'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper'
 import 'swiper/css'
@@ -63,36 +63,46 @@ const NewsBox = () => {
   }
 
 
-  if (isMobile && !news) return null
+  if (isMobile && !news) return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '230px' }}><CircularProgress size='100px' /></Box>
 
   if (isMobile) return (
-    <>
-    <Swiper
-      loop={false}
-      autoplay={{delay: 5000, disableOnInteraction: true}}
-      modules={[Autoplay]}
-      pagination={{ clickable: true }}
-      onRealIndexChange={index => setCurrentNews(index.activeIndex)}
-    >
-      {
-        news.map((el, index) => 
-          <SwiperSlide key={el._id} style={{width: '100vh'}}>
-            <Box>
-              <Box sx={{position: 'relative'}}>
-                <CardMedia component='img' image={el.coverPhoto.address} sx={{ maxHeight: '220px', height: '220px', minWidth: '100vw', width: '100vh', maxWidth: '100vw' }}/>
-                <Box sx={mobileTitleBox}>
-                  {el.title}
+    <React.Fragment>
+      <Swiper
+        loop={false}
+        autoplay={{delay: 5000, disableOnInteraction: false}}
+        modules={[Autoplay]}
+        pagination={{ clickable: true }}
+        onRealIndexChange={index => setCurrentNews(index.activeIndex)}
+      >
+        {
+          news.map((el, index) => 
+            <SwiperSlide key={el._id} style={{width: '100vh'}}>
+              <Box>
+                <Box sx={{position: 'relative'}}>
+                  <CardMedia component='img' image={el.coverPhoto.address} sx={mobileImageStyle}/>
+                  <Box sx={mobileTitleBox}>
+                    {el.title}
+                  </Box>
                 </Box>
               </Box>
+            </SwiperSlide>
+          )
+        }
+      </Swiper>
+      <Stack sx={{ minHeight: '3px', mt: 0.5}} direction='row' spacing={0.5}>
+        {
+          Array(news.length).fill(0).map((_, index) => 
+            <Box key={index} sx={{ minWidth: `calc((100% - ${news.length - 1} * 4px)/${news.length})`, backgroundColor: 'gray', position: 'relative' }}>
+              {
+                index <= currentNews
+                  ? index === currentNews ?  <Box className='loader'></Box> : <Box sx={{ backgroundColor: redColor, width: '100%', height: '3px' }}></Box>
+                  : null
+              }
             </Box>
-          </SwiperSlide>
-        )
-      }
-    </Swiper>
-      <Box sx={{display: 'flex', minHeight: '3px', mt: 0.5}}>
-        { Array(news.length).fill(0).map((_, index) => <Box key={index} sx={{ minWidth: 'calc(100%/5)', backgroundColor: index === currentNews ? 'red' : 'gray' }}/>) }
-      </Box>
-    </>
+          )
+        }
+      </Stack>
+    </React.Fragment>
   )
 
 

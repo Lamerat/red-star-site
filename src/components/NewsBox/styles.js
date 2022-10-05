@@ -137,10 +137,19 @@ export const mobileTitleBox = {
   color: 'white',
   width: 'calc(100vw - 24px)',
   maxWidth: '100vw',
-  fontSize: '14px',
+  fontSize: '15px',
   position: 'absolute',
   bottom: 0,
   backgroundColor: 'rgba(74,74,74,.6)',
   fontFamily: 'CorsaGrotesk',
-  p: 1.5
+  p: 1.5,
+  fontWeight: 500
+}
+
+export const mobileImageStyle = {
+  maxHeight: '230px',
+  height: '230px',
+  minWidth: '100vw',
+  width: '100vh',
+  maxWidth: '100vw'
 }

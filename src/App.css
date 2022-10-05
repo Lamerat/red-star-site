@@ -96,3 +96,28 @@ body {
 .swiper-button-next {
   color: red;
 }
+
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: red;
+  animation-name: animate;
+  animation-duration: 5s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate {
+  0% {
+    left: 0;
+    right: 100%;
+  }
+
+  100% {
+    left: 0;
+    right: 0;
+  }
+  
+}
