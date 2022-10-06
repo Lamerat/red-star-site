@@ -66,7 +66,7 @@ const MobileHomeMedia = ({ album }) => {
           loop={true}
           autoHeight={true}
           pagination={{ clickable: true }}
-          navigation={{ clickable: true, prevEl: '.swiper-button-next', nextEl: '.swiper-button-prev' }}
+          navigation={{ clickable: true, prevEl: '.swiper-button-prev', nextEl: '.swiper-button-next' }}
           modules={[Pagination, Navigation ]}
           style={{ display: 'flex', alignItems: 'center' }}   
           
